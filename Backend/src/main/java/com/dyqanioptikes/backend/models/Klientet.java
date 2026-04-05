@@ -18,4 +18,12 @@ public class Klientet {
     private String telefoni;
     private LocalDate dataLindjes;
     private String adresa;
+
+    @Column(name = "data_regjistrimit", updatable = false)
+    private LocalDate dataRegjistrimit;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataRegjistrimit = LocalDate.now();
+    }
 }
