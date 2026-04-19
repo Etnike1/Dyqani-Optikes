@@ -20,6 +20,14 @@ public class KlientetController {
     public List<Klientet> getAllKlientet() {
         return klientetRepository.findAll();
     }
+    @GetMapping("/")
+    public String home() {
+        return "Serveri i Dyqanit të Optikës është LIVE!";
+    }
+    @PostMapping("/shto")
+    public Klientet shtoKlientet(@RequestBody Klientet klient) {
+        return klientetRepository.save(klient);
+    }
 
     // Shto një klient të ri
     @PostMapping
