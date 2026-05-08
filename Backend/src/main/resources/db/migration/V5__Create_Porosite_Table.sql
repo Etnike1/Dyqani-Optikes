@@ -17,4 +17,4 @@ CREATE TABLE Porosite (
 
     CONSTRAINT FK_Porosite_Punonjesit FOREIGN KEY (punonjes_id)
         REFERENCES Punonjesit(punonjes_id)
-);
+)
