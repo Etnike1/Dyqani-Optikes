@@ -1,6 +1,7 @@
-package com.dyqanioptikes.backend.models;
+package com.dyqanioptikes.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -48,4 +49,5 @@ public class Porosite {
             this.dataPorosise = LocalDate.now();
         }
     }
+    @JoinColumn(name = "klient_id", referencedColumnName = "klient_id")
 }

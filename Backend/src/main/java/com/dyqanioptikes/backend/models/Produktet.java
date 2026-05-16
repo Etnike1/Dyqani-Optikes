@@ -1,13 +1,15 @@
-package com.dyqanioptikes.backend.models;
+package com.dyqanioptikes.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Produktet")
 @Data
 public class Produktet {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +26,12 @@ public class Produktet {
     private String marka;
     private String modeli;
 
-    @Column(precision = 10, scale = 2)
+    @Positive(message = "Çmimi duhet të jetë pozitiv")
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal cmimi;
 
-    @Column(name = "sasia_stok")
+    @Min(value = 0, message = "Stoku nuk mund të jetë negativ")
+    @Column(name = "sasia_stok", nullable = false)
     private Integer sasiaStok;
 
     private String ngjyra;

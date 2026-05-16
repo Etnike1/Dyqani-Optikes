@@ -1,6 +1,7 @@
-package com.dyqanioptikes.backend.models;
+package com.dyqanioptikes.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Entity
@@ -20,6 +21,10 @@ public class Furnitoret {
     private String personiKontaktit;
 
     private String email;
+    @Pattern(
+            regexp = "^[0-9+ ]*$",
+            message = "Numri i telefonit nuk është valid"
+    )
     private String telefoni;
 
     @Column(name = "produktet_furnizuara")

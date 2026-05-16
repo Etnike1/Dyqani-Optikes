@@ -1,6 +1,7 @@
-package com.dyqanioptikes.backend.models;
+package com.dyqanioptikes.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Entity

@@ -1,6 +1,6 @@
 package com.dyqanioptikes.backend.repository;
 
-import com.dyqanioptikes.backend.models.DetajetPorosise;
+import com.dyqanioptikes.backend.model.DetajetPorosise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

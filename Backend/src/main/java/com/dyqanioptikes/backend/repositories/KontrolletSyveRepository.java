@@ -1,9 +1,10 @@
 package com.dyqanioptikes.backend.repository;
 
-import com.dyqanioptikes.backend.model.Furnitoret;
+import com.dyqanioptikes.backend.model.KontrolliSyve;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FurnitoretRepository extends JpaRepository<Furnitoret, Long> {
+public interface KontrolletSyveRepository extends JpaRepository<KontrolliSyve, Integer> {
+
 }

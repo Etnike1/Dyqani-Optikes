@@ -1,15 +1,17 @@
-package com.dyqanioptikes.backend.controllers;
+package com.dyqanioptikes.backend.controller;
 
-import com.dyqanioptikes.backend.models.Furnitoret;
-import com.dyqanioptikes.backend.repositories.FurnitoretRepository;
+import com.dyqanioptikes.backend.model.Furnitoret;
+import com.dyqanioptikes.backend.repository.FurnitoretRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/furnitoret")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FurnitoretController {
 
     @Autowired
@@ -20,13 +22,48 @@ public class FurnitoretController {
         return furnitoretRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Furnitoret> getFurnitorById(@PathVariable Long id) {
+
+        return furnitoretRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
-    public Furnitoret createFurnitor(@RequestBody Furnitoret furnitor) {
+    public Furnitoret createFurnitor(
+            @Valid @RequestBody Furnitoret furnitor) {
+
         return furnitoretRepository.save(furnitor);
     }
 
-    @GetMapping("/{id}")
-    public Furnitoret getFurnitorById(@PathVariable Long id) {
-        return furnitoretRepository.findById(id).orElse(null);
+    @PutMapping("/{id}")
+    public ResponseEntity<Furnitoret> updateFurnitor(
+            @PathVariable Long id,
+            @Valid @RequestBody Furnitoret updatedFurnitor) {
+
+        return furnitoretRepository.findById(id)
+                .map(furnitor -> {
+
+                    furnitor.setEmriKompanise(updatedFurnitor.getEmriKompanise());
+                    furnitor.setPersoniKontaktit(updatedFurnitor.getPersoniKontaktit());
+                    furnitor.setEmail(updatedFurnitor.getEmail());
+                    furnitor.setTelefoni(updatedFurnitor.getTelefoni());
+                    furnitor.setProduktetFurnizuara(updatedFurnitor.getProduktetFurnizuara());
+
+                    return ResponseEntity.ok(furnitoretRepository.save(furnitor));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFurnitor(@PathVariable Long id) {
+
+        if (furnitoretRepository.existsById(id)) {
+            furnitoretRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
