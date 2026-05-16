@@ -1,7 +1,8 @@
-package com.dyqanioptikes.backend.models;
+package com.dyqanioptikes.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

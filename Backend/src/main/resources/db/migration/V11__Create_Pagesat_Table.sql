@@ -13,5 +13,4 @@ CREATE TABLE Pagesat (
     CONSTRAINT FK_Pagesat_Porosite FOREIGN KEY (porosi_id)
         REFERENCES Porosite(porosi_id) ON DELETE CASCADE,
 
-    CONSTRAINT UQ_Pagesat_Porosi UNIQUE (porosi_id)
 );

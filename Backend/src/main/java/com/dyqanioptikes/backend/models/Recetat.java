@@ -1,7 +1,8 @@
-package com.dyqanioptikes.backend.models; // KJO DUHET TË JETË LINJA E PARË
+package com.dyqanioptikes.backend.model; // KJO DUHET TË JETË LINJA E PARË
 
 import jakarta.persistence.*;
 import lombok.Data;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 @Entity
@@ -40,5 +41,6 @@ public class Recetat {
     private Double distancaPupilare;
 
     @Column(name = "shenimet", columnDefinition = "NVARCHAR(MAX)")
-    private String dietat;
+    private String shenimet;
+
 }
