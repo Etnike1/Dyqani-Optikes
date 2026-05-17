@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,6 +14,7 @@ public class Punonjesit {
     @Column(name = "punonjes_id")
     private Long punonjesId;
 
+    @NotBlank
     @Column(nullable = false)
     private String emri;
 

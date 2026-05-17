@@ -33,7 +33,7 @@ public class PunonjesitController {
 
         return punonjesitRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -61,7 +61,7 @@ public class PunonjesitController {
                     return ResponseEntity.ok(
                             punonjesitRepository.save(punonjes));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

@@ -1,3 +1,14 @@
+package com.dyqanioptikes.backend.controllers;
+
+import com.dyqanioptikes.backend.models.Kategorite;
+import com.dyqanioptikes.backend.repositories.KategoriteRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/kategorite")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -19,7 +30,7 @@ public class KategoriteController {
     }
 
     @PutMapping("/{id}")
-    public Kategorite updateKategori(
+    public ResponseEntity<Kategorite> updateKategori(
             @PathVariable Long id,
             @Valid @RequestBody Kategorite updatedKategori) {
 
@@ -35,14 +46,23 @@ public class KategoriteController {
                     kategori.setAktive(
                             updatedKategori.getAktive());
 
-                    return kategoriteRepository.save(kategori);
+                    return ResponseEntity.ok(
+                            kategoriteRepository.save(kategori));
                 })
-                .orElseThrow(() ->
-                        new RuntimeException("Kategoria nuk u gjet"));
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteKategori(@PathVariable Long id) {
-        kategoriteRepository.deleteById(id);
+    public ResponseEntity<Void> deleteKategori(
+            @PathVariable Long id) {
+
+        if (kategoriteRepository.existsById(id)) {
+
+            kategoriteRepository.deleteById(id);
+
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

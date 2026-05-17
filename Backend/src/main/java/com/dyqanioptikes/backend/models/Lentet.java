@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,7 +15,8 @@ public class Lentet {
     @Column(name = "lente_id")
     private Long lenteId;
 
-    @Column(name = "lloji_lentes")
+    @NotBlank
+    @Column(name = "lloji_lentes", nullable = false)
     private String llojiLentes;
 
     private String prodhuesi;

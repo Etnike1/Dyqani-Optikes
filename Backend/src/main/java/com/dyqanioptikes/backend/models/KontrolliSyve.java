@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model; // Fixed package name
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;

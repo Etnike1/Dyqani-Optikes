@@ -1,7 +1,7 @@
-package com.dyqanioptikes.backend.controller;
+package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.model.Furnitoret;
-import com.dyqanioptikes.backend.repository.FurnitoretRepository;
+import com.dyqanioptikes.backend.models.Furnitoret;
+import com.dyqanioptikes.backend.repositories.FurnitoretRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class FurnitoretController {
 
         return furnitoretRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -53,7 +53,7 @@ public class FurnitoretController {
 
                     return ResponseEntity.ok(furnitoretRepository.save(furnitor));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

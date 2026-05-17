@@ -28,7 +28,7 @@ public class ProduktetController {
 
         return produktetRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -71,7 +71,7 @@ public class ProduktetController {
                     return ResponseEntity.ok(
                             produktetRepository.save(produkt));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
