@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,7 +20,8 @@ public class Produktet {
     @JoinColumn(name = "kategori_id", nullable = false)
     private Kategorite kategori;
 
-    @Column(name = "emri_produktit")
+    @NotBlank
+    @Column(name = "emri_produktit", nullable = false)
     private String emriProduktit;
 
     private String marka;

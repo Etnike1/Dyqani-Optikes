@@ -1,6 +1,8 @@
 package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -13,14 +15,17 @@ public class DetajetPorosise {
     @Column(name = "detaj_id")
     private Integer detajId;
 
-    @Column(name = "sasia")
+    @NotNull(message = "Sasia është e detyrueshme")
+    @Min(value = 1, message = "Sasia duhet të jetë minimum 1")
+    @Column(name = "sasia", nullable = false)
     private Integer sasia;
 
-    @Column(name = "cmimi_njesi")
+    @NotNull(message = "Cmimi është i detyrueshëm")
+    @Column(name = "cmimi_njesi", nullable = false)
     private Double cmimiNjesi;
 
     @Column(name = "nentotali", insertable = false, updatable = false)
-    private Double nentotali; // Ky vjen nga SQL, prandaj insertable = false
+    private Double nentotali;
 
     @ManyToOne
     @JoinColumn(name = "porosi_id", nullable = false)

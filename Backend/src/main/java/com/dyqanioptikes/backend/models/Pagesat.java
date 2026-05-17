@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,7 +26,7 @@ public class Pagesat {
     @Column(name = "data_pageses")
     private LocalDateTime dataPageses;
 
-    @Column(name = "metoda_pageses")
+    @Column(name = "metoda")
     private String metodaPageses; // Kesh, Kartelë, etj.
 
     @PrePersist

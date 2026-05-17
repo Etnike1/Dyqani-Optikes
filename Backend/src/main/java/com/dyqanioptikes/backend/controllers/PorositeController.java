@@ -28,7 +28,7 @@ public class PorositeController {
 
         return porositeRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -57,7 +57,7 @@ public class PorositeController {
                     return ResponseEntity.ok(
                             porositeRepository.save(porosia));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

@@ -1,7 +1,7 @@
-package com.dyqanioptikes.backend.controller;
+package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.model.DetajetPorosise;
-import com.dyqanioptikes.backend.repository.DetajetPorosiseRepository;
+import com.dyqanioptikes.backend.models.DetajetPorosise;
+import com.dyqanioptikes.backend.repositories.DetajetPorosiseRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class DetajetPorosiseController {
     public ResponseEntity<DetajetPorosise> getById(@PathVariable Integer id) {
         return detajetRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -55,7 +55,7 @@ public class DetajetPorosiseController {
 
                     return ResponseEntity.ok(detajetRepository.save(detaj));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

@@ -1,7 +1,7 @@
-package com.dyqanioptikes.backend.controller;
+package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.model.Klientet;
-import com.dyqanioptikes.backend.repository.KlientetRepository;
+import com.dyqanioptikes.backend.models.Klientet;
+import com.dyqanioptikes.backend.repositories.KlientetRepository;
 import jakarta.validation.Valid; // Shtuar për të mundësuar @Valid pa gabime kompiliimi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

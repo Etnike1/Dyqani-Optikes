@@ -28,7 +28,7 @@ public class RecetatController {
 
         return recetaRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -75,7 +75,7 @@ public class RecetatController {
                     return ResponseEntity.ok(
                             recetaRepository.save(receta));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

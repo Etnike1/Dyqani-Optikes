@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -13,10 +13,17 @@ public class Klientet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "klient_id")
     private Long id;
-
+    @NotBlank
+    @Column(nullable = false)
     private String emri;
+
+    @NotBlank
+    @Column(nullable = false)
     private String mbiemri;
+
+    @Email
     private String email;
+
     @Pattern(
             regexp = "^[0-9+ ]*$",
             message = "Numri i telefonit nuk është valid"

@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -14,7 +14,8 @@ public class Furnitoret {
     @Column(name = "furnitor_id")
     private Long furnitorId;
 
-    @Column(name = "emri_kompanise")
+    @NotBlank
+    @Column(name = "emri_kompanise", nullable = false)
     private String emriKompanise;
 
     @Column(name = "personi_kontaktit")

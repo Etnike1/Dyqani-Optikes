@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -18,7 +18,7 @@ public class Porosite {
 
 
     @ManyToOne
-    @JoinColumn(name = "klient_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "klient_id", referencedColumnName = "klient_id", nullable = false)
     private Klientet klient;
 
 
@@ -49,5 +49,5 @@ public class Porosite {
             this.dataPorosise = LocalDate.now();
         }
     }
-    @JoinColumn(name = "klient_id", referencedColumnName = "klient_id")
+
 }
