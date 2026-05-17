@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model;
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -14,7 +14,8 @@ public class Kategorite {
     @Column(name = "kategori_id")
     private Long kategoriId;
 
-    @Column(name = "emri_kategorise")
+    @NotBlank
+    @Column(name = "emri_kategorise", nullable = false)
     private String emriKategorise;
 
     private String pershkrimi;

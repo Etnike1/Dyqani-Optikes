@@ -11,6 +11,5 @@ CREATE TABLE Pagesat (
     -- Lidhja me tabelën Porosite (One-to-One teknikisht në nivel biznesi)
     -- Përdorim UNIQUE nëse dëshirojmë që një porosi të ketë vetëm një regjistrim pagese
     CONSTRAINT FK_Pagesat_Porosite FOREIGN KEY (porosi_id)
-        REFERENCES Porosite(porosi_id) ON DELETE CASCADE,
-
+       REFERENCES Porosite(porosi_id) ON DELETE CASCADE
 );

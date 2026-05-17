@@ -1,7 +1,7 @@
-package com.dyqanioptikes.backend.controller;
+package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.model.Lentet;
-import com.dyqanioptikes.backend.repository.LentetRepository;
+import com.dyqanioptikes.backend.models.Lentet;
+import com.dyqanioptikes.backend.repositories.LentetRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class LentetController {
 
         return lentetRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -52,7 +52,7 @@ public class LentetController {
 
                     return ResponseEntity.ok(lentetRepository.save(lente));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

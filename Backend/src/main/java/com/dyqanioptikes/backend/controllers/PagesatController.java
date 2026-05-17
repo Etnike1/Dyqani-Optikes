@@ -1,7 +1,7 @@
-package com.dyqanioptikes.backend.controller;
+package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.model.Pagesat;
-import com.dyqanioptikes.backend.repository.PagesatRepository;
+import com.dyqanioptikes.backend.models.Pagesat;
+import com.dyqanioptikes.backend.repositories.PagesatRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +42,7 @@ public class PagesatController {
 
         return pagesatRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
@@ -59,7 +59,7 @@ public class PagesatController {
 
                     return ResponseEntity.ok(pagesatRepository.save(pagesa));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

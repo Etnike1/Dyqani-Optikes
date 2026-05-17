@@ -1,7 +1,7 @@
-package com.dyqanioptikes.backend.controller;
+package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.model.KontrolliSyve;
-import com.dyqanioptikes.backend.repository.KontrolletSyveRepository;
+import com.dyqanioptikes.backend.models.KontrolliSyve;
+import com.dyqanioptikes.backend.repositories.KontrolletSyveRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class KontrolletSyveController {
 
         return repository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -51,14 +51,16 @@ public class KontrolletSyveController {
         return repository.findById(id)
                 .map(kontroll -> {
 
-                    kontroll.setKlientId(updatedKontroll.getKlientId());
-                    kontroll.setPunonjesId(updatedKontroll.getPunonjesId());
+                    kontroll.setKlient(updatedKontroll.getKlient());
+                    kontroll.setPunonjesi(updatedKontroll.getPunonjesi());
+                    kontroll.setReceteId(updatedKontroll.getReceteId());
                     kontroll.setDataKontrollit(updatedKontroll.getDataKontrollit());
                     kontroll.setRezultati(updatedKontroll.getRezultati());
+                    kontroll.setRekomandimi(updatedKontroll.getRekomandimi());
 
                     return ResponseEntity.ok(repository.save(kontroll));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

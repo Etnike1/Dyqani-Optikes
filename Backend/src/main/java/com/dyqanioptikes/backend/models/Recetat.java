@@ -1,4 +1,4 @@
-package com.dyqanioptikes.backend.model; // KJO DUHET TË JETË LINJA E PARË
+package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
