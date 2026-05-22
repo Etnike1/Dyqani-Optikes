@@ -1,3 +1,11 @@
+package com.dyqanioptikes.backend.controllers;
+
+import com.dyqanioptikes.backend.dto.RegisterRequest;
+import com.dyqanioptikes.backend.dto.LoginRequest;
+import com.dyqanioptikes.backend.services.AuthService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -16,8 +24,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
-        authService.registerUser(signUpRequest);
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) { // <-- Ndryshoje këtu në RegisterRequest
+        authService.registerUser(registerRequest); // <-- Sigurohu që edhe këtu ia kalon registerRequest
         return ResponseEntity.ok("User registered successfully");
     }
 }

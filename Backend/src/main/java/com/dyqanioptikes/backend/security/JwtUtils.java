@@ -1,3 +1,9 @@
+package com.dyqanioptikes.backend.security;
+
+import org.springframework.security.core.Authentication; // Importi për Authentication
+import org.springframework.stereotype.Component;
+
+
 @Component
 public class JwtUtils {
     private final String jwtSecret = "sekretiytshumeeformatqenukduhettedijekush"; // Ndryshoje!
