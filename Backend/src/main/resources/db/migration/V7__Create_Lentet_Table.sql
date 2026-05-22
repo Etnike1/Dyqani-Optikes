@@ -1,5 +1,5 @@
 CREATE TABLE Lentet (
-    lente_id INT IDENTITY(1,1) PRIMARY KEY,
+    lente_id BIGINT IDENTITY(1,1) PRIMARY KEY,
     lloji_lentes NVARCHAR(100) NOT NULL,
     prodhuesi NVARCHAR(100),
     indeksi NVARCHAR(50),

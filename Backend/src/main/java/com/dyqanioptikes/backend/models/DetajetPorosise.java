@@ -13,7 +13,7 @@ public class DetajetPorosise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "detaj_id")
-    private Integer detajId;
+    private Long detajId;
 
     @NotNull(message = "Sasia është e detyrueshme")
     @Min(value = 1, message = "Sasia duhet të jetë minimum 1")

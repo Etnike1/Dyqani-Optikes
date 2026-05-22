@@ -1,10 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Pagesat;
-import com.dyqanioptikes.backend.repositories.PagesatRepository;
+import com.dyqanioptikes.backend.services.PagesatService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,62 +13,41 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class PagesatController {
 
-    @Autowired
-    private PagesatRepository pagesatRepository;
+    private final PagesatService service;
 
-    @GetMapping
-    public List<Pagesat> getAllPagesat() {
-        return pagesatRepository.findAll();
+    public PagesatController(PagesatService service) {
+        this.service = service;
     }
 
-    @PostMapping
-    public Pagesat createPagese(
-            @Valid @RequestBody Pagesat pagesa) {
-
-        return pagesatRepository.save(pagesa);
+    @GetMapping
+    public List<Pagesat> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/porosia/{porosiId}")
-    public List<Pagesat> getPagesaByPorosia(
-            @PathVariable Long porosiId) {
-
-        return pagesatRepository.findByPorosiaPorosiId(porosiId);
+    public List<Pagesat> getByPorosia(@PathVariable Long porosiId) {
+        return service.getByPorosiaId(porosiId);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pagesat> getPagesaById(
-            @PathVariable Long id) {
+    public Pagesat getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
 
-        return pagesatRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Pagesat create(@Valid @RequestBody Pagesat pagesa) {
+        return service.create(pagesa);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pagesat> updatePagesa(
-            @PathVariable Long id,
-            @Valid @RequestBody Pagesat updatedPagesa) {
-
-        return pagesatRepository.findById(id)
-                .map(pagesa -> {
-
-                    pagesa.setPorosia(updatedPagesa.getPorosia());
-                    pagesa.setShuma(updatedPagesa.getShuma());
-                    pagesa.setMetodaPageses(updatedPagesa.getMetodaPageses());
-
-                    return ResponseEntity.ok(pagesatRepository.save(pagesa));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Pagesat update(@PathVariable Long id, @Valid @RequestBody Pagesat updatedPagesa) {
+        return service.update(id, updatedPagesa);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePagese(@PathVariable Long id) {
-
-        if (pagesatRepository.existsById(id)) {
-            pagesatRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

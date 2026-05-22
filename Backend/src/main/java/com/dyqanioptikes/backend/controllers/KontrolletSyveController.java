@@ -1,76 +1,48 @@
 package com.dyqanioptikes.backend.controllers;
 
-import com.dyqanioptikes.backend.models.KontrolliSyve;
-import com.dyqanioptikes.backend.repositories.KontrolletSyveRepository;
+import com.dyqanioptikes.backend.models.KontrolletSyve;
+import com.dyqanioptikes.backend.services.KontrolletSyveService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/kontrollet-syve")
+@RequestMapping("/api/kontrolletsyve")
 @CrossOrigin(origins = "http://localhost:3000")
 public class KontrolletSyveController {
 
-    @Autowired
-    private KontrolletSyveRepository repository;
+    private final KontrolletSyveService service;
+
+    public KontrolletSyveController(KontrolletSyveService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<KontrolliSyve> getAllKontrollet() {
-        return repository.findAll();
+    public List<KontrolletSyve> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<KontrolliSyve> getKontrollById(
-            @PathVariable Integer id) {
-
-        return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public KontrolletSyve getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public KontrolliSyve createKontroll(
-            @Valid @RequestBody KontrolliSyve kontrolli) {
-
-        if (kontrolli.getDataKontrollit() == null) {
-            kontrolli.setDataKontrollit(LocalDate.now());
-        }
-
-        return repository.save(kontrolli);
+    @ResponseStatus(HttpStatus.CREATED)
+    public KontrolletSyve create(@Valid @RequestBody KontrolletSyve kontrolli) {
+        return service.create(kontrolli);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<KontrolliSyve> updateKontroll(
-            @PathVariable Integer id,
-            @Valid @RequestBody KontrolliSyve updatedKontroll) {
-
-        return repository.findById(id)
-                .map(kontroll -> {
-
-                    kontroll.setKlient(updatedKontroll.getKlient());
-                    kontroll.setPunonjesi(updatedKontroll.getPunonjesi());
-                    kontroll.setReceteId(updatedKontroll.getReceteId());
-                    kontroll.setDataKontrollit(updatedKontroll.getDataKontrollit());
-                    kontroll.setRezultati(updatedKontroll.getRezultati());
-                    kontroll.setRekomandimi(updatedKontroll.getRekomandimi());
-
-                    return ResponseEntity.ok(repository.save(kontroll));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public KontrolletSyve update(@PathVariable Long id, @Valid @RequestBody KontrolletSyve updatedKontrolli) {
+        return service.update(id, updatedKontrolli);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteKontroll(@PathVariable Integer id) {
-
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

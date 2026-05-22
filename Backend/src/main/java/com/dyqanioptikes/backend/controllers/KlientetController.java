@@ -1,9 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Klientet;
-import com.dyqanioptikes.backend.services.KlientetService; // Importojmë Service-in e ri
+import com.dyqanioptikes.backend.services.KlientetService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,39 +13,37 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class KlientetController {
 
-    @Autowired
-    private KlientetService klientetService; // Tani përdorim vetëm Service-in!
+    private final KlientetService service;
 
-    // 1. Merr të gjithë klientët
+    // Constructor Injection replaces @Autowired
+    public KlientetController(KlientetService service) {
+        this.service = service;
+    }
+
     @GetMapping
-    public List<Klientet> getAllKlientet() {
-        return klientetService.getAllKlientet();
+    public List<Klientet> getAll() {
+        return service.getAllKlientet();
     }
 
-    // 2. Kontrolli i statusit të serverit
-    @GetMapping("/")
-    public String home() {
-        return "Serveri i Dyqanit të Optikës është LIVE!";
+    @GetMapping("/{id}")
+    public Klientet getById(@PathVariable Long id) {
+        return service.getKlientById(id);
     }
 
-    // 3. Shto një klient të ri
     @PostMapping
-    public Klientet createKlient(@Valid @RequestBody Klientet klient) {
-        return klientetService.createKlient(klient);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Klientet create(@Valid @RequestBody Klientet klient) {
+        return service.createKlient(klient);
     }
 
-    // 4. Përditëso të dhënat e një klienti ekzistues
     @PutMapping("/{id}")
-    public Klientet updateKlient(
-            @PathVariable Long id,
-            @Valid @RequestBody Klientet updatedKlient) {
-        // Thirret metoda e thjeshtuar nga Service
-        return klientetService.updateKlient(id, updatedKlient);
+    public Klientet update(@PathVariable Long id, @Valid @RequestBody Klientet updatedKlient) {
+        return service.updateKlient(id, updatedKlient);
     }
 
-    // 5. Fshij një klient
     @DeleteMapping("/{id}")
-    public void deleteKlient(@PathVariable Long id) {
-        klientetService.deleteKlient(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.deleteKlient(id);
     }
 }

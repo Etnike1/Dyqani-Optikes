@@ -1,10 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Porosite;
-import com.dyqanioptikes.backend.repositories.PorositeRepository;
+import com.dyqanioptikes.backend.services.PorositeService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,63 +13,36 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class PorositeController {
 
-    @Autowired
-    private PorositeRepository porositeRepository;
+    private final PorositeService service;
+
+    public PorositeController(PorositeService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Porosite> getAllPorosite() {
-        return porositeRepository.findAll();
+    public List<Porosite> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Porosite> getPorosiaById(
-            @PathVariable Long id) {
-
-        return porositeRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Porosite getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Porosite createPorosia(
-            @Valid @RequestBody Porosite porosia) {
-
-        return porositeRepository.save(porosia);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Porosite create(@Valid @RequestBody Porosite porosia) {
+        return service.create(porosia);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Porosite> updatePorosia(
-            @PathVariable Long id,
-            @Valid @RequestBody Porosite updatedPorosia) {
-
-        return porositeRepository.findById(id)
-                .map(porosia -> {
-
-                    porosia.setKlient(updatedPorosia.getKlient());
-                    porosia.setReceta(updatedPorosia.getReceta());
-                    porosia.setPunonjesi(updatedPorosia.getPunonjesi());
-                    porosia.setTotali(updatedPorosia.getTotali());
-                    porosia.setStatusi(updatedPorosia.getStatusi());
-                    porosia.setDataGatshmerise(
-                            updatedPorosia.getDataGatshmerise());
-
-                    return ResponseEntity.ok(
-                            porositeRepository.save(porosia));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Porosite update(@PathVariable Long id, @Valid @RequestBody Porosite updatedPorosia) {
+        return service.update(id, updatedPorosia);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePorosia(
-            @PathVariable Long id) {
-
-        if (porositeRepository.existsById(id)) {
-
-            porositeRepository.deleteById(id);
-
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

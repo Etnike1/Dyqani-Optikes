@@ -1,10 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Punonjesit;
-import com.dyqanioptikes.backend.repositories.PunonjesitRepository;
+import com.dyqanioptikes.backend.services.PunonjesitService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,67 +13,41 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class PunonjesitController {
 
-    @Autowired
-    private PunonjesitRepository punonjesitRepository;
+    private final PunonjesitService service;
+
+    public PunonjesitController(PunonjesitService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Punonjesit> getAllPunonjesit() {
-        return punonjesitRepository.findAll();
+    public List<Punonjesit> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/aktiv")
-    public List<Punonjesit> getAktivPunonjesit() {
-        return punonjesitRepository.findByAktivTrue();
+    public List<Punonjesit> getAktiv() {
+        return service.getAktiv();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Punonjesit> getPunonjesiById(
-            @PathVariable Long id) {
-
-        return punonjesitRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Punonjesit getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Punonjesit createPunonjesit(
-            @Valid @RequestBody Punonjesit punonjesit) {
-
-        return punonjesitRepository.save(punonjesit);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Punonjesit create(@Valid @RequestBody Punonjesit punonjesit) {
+        return service.create(punonjesit);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Punonjesit> updatePunonjes(
-            @PathVariable Long id,
-            @Valid @RequestBody Punonjesit updatedPunonjes) {
-
-        return punonjesitRepository.findById(id)
-                .map(punonjes -> {
-
-                    punonjes.setEmri(updatedPunonjes.getEmri());
-                    punonjes.setMbiemri(updatedPunonjes.getMbiemri());
-                    punonjes.setRoli(updatedPunonjes.getRoli());
-                    punonjes.setEmail(updatedPunonjes.getEmail());
-                    punonjes.setTelefoni(updatedPunonjes.getTelefoni());
-                    punonjes.setAktiv(updatedPunonjes.getAktiv());
-
-                    return ResponseEntity.ok(
-                            punonjesitRepository.save(punonjes));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Punonjesit update(@PathVariable Long id, @Valid @RequestBody Punonjesit updatedPunonjes) {
+        return service.update(id, updatedPunonjes);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePunonjesi(
-            @PathVariable Long id) {
-
-        if (punonjesitRepository.existsById(id)) {
-
-            punonjesitRepository.deleteById(id);
-
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

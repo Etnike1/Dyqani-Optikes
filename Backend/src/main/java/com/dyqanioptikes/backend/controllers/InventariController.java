@@ -1,9 +1,8 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Inventari;
-import com.dyqanioptikes.backend.repositories.InventariRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.dyqanioptikes.backend.services.InventariService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,42 +12,36 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class InventariController {
 
-    @Autowired
-    private InventariRepository inventariRepository;
+    private final InventariService service;
+
+    public InventariController(InventariService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Inventari> getAllInventari() {
-        return inventariRepository.findAll();
+    public List<Inventari> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Inventari> getInventarById(@PathVariable Long id) {
-        return inventariRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Inventari getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Inventari createInventar(@RequestBody Inventari inventari) {
-        return inventariRepository.save(inventari);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Inventari create(@RequestBody Inventari inventari) {
+        return service.create(inventari);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inventari> updateInventar(@PathVariable Long id, @RequestBody Inventari newInventari) {
-        return inventariRepository.findById(id).map(inventar -> {
-            inventar.setProdukt(newInventari.getProdukt());
-            inventar.setSasiaAktuale(newInventari.getSasiaAktuale());
-            inventar.setSasiaMinimale(newInventari.getSasiaMinimale());
-            return ResponseEntity.ok(inventariRepository.save(inventar));
-        }).orElse(ResponseEntity.notFound().build());
+    public Inventari update(@PathVariable Long id, @RequestBody Inventari updatedInventari) {
+        return service.update(id, updatedInventari);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInventar(@PathVariable Long id) {
-        if (inventariRepository.existsById(id)) {
-            inventariRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

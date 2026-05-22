@@ -14,7 +14,7 @@ public class Garancite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "garancia_id")
-    private Integer garanciaId; // ID-ja e vetë garancisë mbetet Integer si tabelat e tjera të vogla
+    private Long garanciaId; // ID-ja e vetë garancisë mbetet Integer si tabelat e tjera të vogla
 
     @NotNull(message = "Data e fillimit është e detyrueshme")
     @Column(name = "data_fillimit", nullable = false)

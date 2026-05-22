@@ -1,8 +1,8 @@
 -- V7__Create_Pagesat_Table.sql
 
 CREATE TABLE Pagesat (
-    pagese_id INT IDENTITY(1,1) PRIMARY KEY,
-    porosi_id INT NOT NULL,
+    pagese_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    porosi_id BIGINT NOT NULL,
     shuma DECIMAL(10, 2) NOT NULL,
     data_pageses DATETIME DEFAULT GETDATE(),
     metoda NVARCHAR(50) NOT NULL CHECK (metoda IN ('Cash', 'Kartelë', 'Transfer')),

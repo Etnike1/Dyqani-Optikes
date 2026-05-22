@@ -1,10 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.DetajetPorosise;
-import com.dyqanioptikes.backend.repositories.DetajetPorosiseRepository;
+import com.dyqanioptikes.backend.services.DetajetPorosiseService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,58 +13,41 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class DetajetPorosiseController {
 
-    @Autowired
-    private DetajetPorosiseRepository detajetRepository;
+    private final DetajetPorosiseService service;
+
+    public DetajetPorosiseController(DetajetPorosiseService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<DetajetPorosise> getAll() {
-        return detajetRepository.findAll();
+        return service.getAll();
     }
 
-    @GetMapping("/porosia/{id}")
-    public List<DetajetPorosise> getByPorosia(@PathVariable Integer id) {
-        return detajetRepository.findByPorosia_PorosiId(id);
+    @GetMapping("/porosia/{porosiId}")
+    public List<DetajetPorosise> getByPorosia(@PathVariable Long porosiId) {
+        return service.getByPorosiaId(porosiId);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetajetPorosise> getById(@PathVariable Integer id) {
-        return detajetRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public DetajetPorosise getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public DetajetPorosise shto(@Valid @RequestBody DetajetPorosise detaj) {
-        return detajetRepository.save(detaj);
+    @ResponseStatus(HttpStatus.CREATED)
+    public DetajetPorosise create(@Valid @RequestBody DetajetPorosise detaj) {
+        return service.create(detaj);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DetajetPorosise> update(
-            @PathVariable Integer id,
-            @Valid @RequestBody DetajetPorosise updatedDetaj) {
-
-        return detajetRepository.findById(id)
-                .map(detaj -> {
-
-                    detaj.setSasia(updatedDetaj.getSasia());
-                    detaj.setCmimiNjesi(updatedDetaj.getCmimiNjesi());
-                    detaj.setPorosia(updatedDetaj.getPorosia());
-                    detaj.setProdukti(updatedDetaj.getProdukti());
-                    detaj.setLentet(updatedDetaj.getLentet());
-
-                    return ResponseEntity.ok(detajetRepository.save(detaj));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public DetajetPorosise update(@PathVariable Long id, @Valid @RequestBody DetajetPorosise updatedDetaj) {
+        return service.update(id, updatedDetaj);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> fshij(@PathVariable Integer id) {
-
-        if (detajetRepository.existsById(id)) {
-            detajetRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

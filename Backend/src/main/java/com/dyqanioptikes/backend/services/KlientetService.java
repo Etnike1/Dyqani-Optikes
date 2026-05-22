@@ -2,30 +2,37 @@ package com.dyqanioptikes.backend.services;
 
 import com.dyqanioptikes.backend.models.Klientet;
 import com.dyqanioptikes.backend.repositories.KlientetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Service // Ky anotacion i thotë Spring Boot që kjo klasë është Shtresa Service
+@Service
 public class KlientetService {
 
-    @Autowired
-    private KlientetRepository klientetRepository;
+    private final KlientetRepository repository;
 
-    // 1. Merr të gjithë klientët
+    // Constructor Injection replaces @Autowired
+    public KlientetService(KlientetRepository repository) {
+        this.repository = repository;
+    }
+
     public List<Klientet> getAllKlientet() {
-        return klientetRepository.findAll();
+        return repository.findAll();
     }
 
-    // 2. Ruaj një klient të ri
+    public Klientet getKlientById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Klienti nuk u gjet!"));
+    }
+
     public Klientet createKlient(Klientet klient) {
-        return klientetRepository.save(klient);
+        return repository.save(klient);
     }
 
-    // 3. Përditëso klientin (E gjithë logjika e biznesit zhvendoset këtu!)
     public Klientet updateKlient(Long id, Klientet updatedKlient) {
-        return klientetRepository.findById(id)
+        return repository.findById(id)
                 .map(klient -> {
                     klient.setEmri(updatedKlient.getEmri());
                     klient.setMbiemri(updatedKlient.getMbiemri());
@@ -33,13 +40,15 @@ public class KlientetService {
                     klient.setTelefoni(updatedKlient.getTelefoni());
                     klient.setDataLindjes(updatedKlient.getDataLindjes());
                     klient.setAdresa(updatedKlient.getAdresa());
-                    return klientetRepository.save(klient);
+                    return repository.save(klient);
                 })
-                .orElseThrow(() -> new RuntimeException("Klienti nuk u gjet me ID: " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Klienti nuk u gjet me ID: " + id));
     }
 
-    // 4. Fshij një klient
     public void deleteKlient(Long id) {
-        klientetRepository.deleteById(id);
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Klienti nuk u gjet!");
+        }
+        repository.deleteById(id);
     }
 }

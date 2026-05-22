@@ -1,6 +1,6 @@
 CREATE TABLE Inventari (
-    inventar_id INT IDENTITY(1,1) PRIMARY KEY,
-    produkt_id INT NOT NULL,
+    inventar_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    produkt_id BIGINT NOT NULL,
     sasia_aktuale INT,
     sasia_minimale INT,
     data_perditesimit DATE,

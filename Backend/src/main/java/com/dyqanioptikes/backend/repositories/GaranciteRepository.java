@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GaranciteRepository extends JpaRepository<Garancite, Integer> {
+public interface GaranciteRepository extends JpaRepository<Garancite, Long> {
 
     List<Garancite> findByPorosia_PorosiId(Long porosiId);
 

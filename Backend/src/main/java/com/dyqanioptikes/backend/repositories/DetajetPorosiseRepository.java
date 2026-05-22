@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DetajetPorosiseRepository extends JpaRepository<DetajetPorosise, Integer> {
+public interface DetajetPorosiseRepository extends JpaRepository<DetajetPorosise, Long> {
     // Kërkon të gjitha detajet që i përkasin një ID-je të caktuar porosi_id
-    List<DetajetPorosise> findByPorosia_PorosiId(Integer porosiId);
+    List<DetajetPorosise> findByPorosia_PorosiId(Long porosiId);
 }
