@@ -1,7 +1,3 @@
-package com.project.models;
-
-import jakarta.persistence.*;
-
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -10,26 +6,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 30)
-    private ERole name;
+    @Column(unique = true, nullable = false)
+    private String name;
 
-    public Role() {
-    }
-
-    public Role(ERole name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public ERole getName() {
-        return name;
-    }
-
-    public void setName(ERole name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "role")
+    private Set<UserRole> userRoles = new HashSet<>();
 }
