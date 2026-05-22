@@ -1,8 +1,8 @@
 CREATE TABLE Porosite (
-    porosi_id INT IDENTITY(1,1) PRIMARY KEY,
-    klient_id INT NOT NULL,
-    recete_id INT NOT NULL,
-    punonjes_id INT NOT NULL,
+    porosi_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    klient_id BIGINT NOT NULL,
+    recete_id BIGINT NOT NULL,
+    punonjes_id BIGINT NOT NULL,
 
     data_porosise DATE DEFAULT GETDATE(),
     totali DECIMAL(10,2) NOT NULL,

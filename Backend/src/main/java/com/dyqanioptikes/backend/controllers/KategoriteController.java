@@ -1,10 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Kategorite;
-import com.dyqanioptikes.backend.repositories.KategoriteRepository;
+import com.dyqanioptikes.backend.services.KategoriteService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,55 +13,36 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class KategoriteController {
 
-    @Autowired
-    private KategoriteRepository kategoriteRepository;
+    private final KategoriteService service;
+
+    public KategoriteController(KategoriteService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Kategorite> getAllKategorite() {
-        return kategoriteRepository.findAll();
+    public List<Kategorite> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Kategorite getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Kategorite createKategori(
-            @Valid @RequestBody Kategorite kategori) {
-
-        return kategoriteRepository.save(kategori);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Kategorite create(@Valid @RequestBody Kategorite kategori) {
+        return service.create(kategori);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Kategorite> updateKategori(
-            @PathVariable Long id,
-            @Valid @RequestBody Kategorite updatedKategori) {
-
-        return kategoriteRepository.findById(id)
-                .map(kategori -> {
-
-                    kategori.setEmriKategorise(
-                            updatedKategori.getEmriKategorise());
-
-                    kategori.setPershkrimi(
-                            updatedKategori.getPershkrimi());
-
-                    kategori.setAktive(
-                            updatedKategori.getAktive());
-
-                    return ResponseEntity.ok(
-                            kategoriteRepository.save(kategori));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Kategorite update(@PathVariable Long id, @Valid @RequestBody Kategorite updatedKategori) {
+        return service.update(id, updatedKategori);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteKategori(
-            @PathVariable Long id) {
-
-        if (kategoriteRepository.existsById(id)) {
-
-            kategoriteRepository.deleteById(id);
-
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

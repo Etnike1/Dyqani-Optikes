@@ -1,9 +1,9 @@
 CREATE TABLE Garancite (
-    garancia_id INT IDENTITY(1,1) PRIMARY KEY,
-    porosi_id INT NOT NULL,
-    klient_id INT NOT NULL,
-    produkt_id INT NULL,
-    lente_id INT NULL,
+    garancia_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    porosi_id BIGINT NOT NULL,
+    klient_id BIGINT NOT NULL,
+    produkt_id BIGINT NULL,
+    lente_id BIGINT NULL,
 
     data_fillimit DATE NOT NULL,
     data_skadimit DATE NOT NULL,

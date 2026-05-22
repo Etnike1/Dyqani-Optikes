@@ -1,4 +1,0 @@
-CREATE TABLE TestTabela (
-    id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    emri NVARCHAR(100)
-);

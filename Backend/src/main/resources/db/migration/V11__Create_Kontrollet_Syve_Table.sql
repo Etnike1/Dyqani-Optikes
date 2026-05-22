@@ -1,8 +1,8 @@
 CREATE TABLE Kontrollet_Syve (
-    kontroll_id INT IDENTITY(1,1) PRIMARY KEY,
-    klient_id INT NOT NULL,
-    punonjes_id INT NOT NULL,
-    recete_id INT NULL,
+    kontroll_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    klient_id BIGINT NOT NULL,
+    punonjes_id BIGINT NOT NULL,
+    recete_id BIGINT NULL,
 
     data_kontrollit DATE DEFAULT GETDATE(),
 

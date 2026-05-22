@@ -1,10 +1,9 @@
 package com.dyqanioptikes.backend.controllers;
 
 import com.dyqanioptikes.backend.models.Lentet;
-import com.dyqanioptikes.backend.repositories.LentetRepository;
+import com.dyqanioptikes.backend.services.LentetService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,55 +13,36 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class LentetController {
 
-    @Autowired
-    private LentetRepository lentetRepository;
+    private final LentetService service;
+
+    public LentetController(LentetService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Lentet> getAllLentet() {
-        return lentetRepository.findAll();
+    public List<Lentet> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Lentet> getLenteById(@PathVariable Long id) {
-
-        return lentetRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Lentet getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Lentet createLente(@Valid @RequestBody Lentet lente) {
-        return lentetRepository.save(lente);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Lentet create(@Valid @RequestBody Lentet lente) {
+        return service.create(lente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Lentet> updateLente(
-            @PathVariable Long id,
-            @Valid @RequestBody Lentet updatedLente) {
-
-        return lentetRepository.findById(id)
-                .map(lente -> {
-
-                    lente.setLlojiLentes(updatedLente.getLlojiLentes());
-                    lente.setProdhuesi(updatedLente.getProdhuesi());
-                    lente.setIndeksi(updatedLente.getIndeksi());
-                    lente.setVeshja(updatedLente.getVeshja());
-                    lente.setCmimi(updatedLente.getCmimi());
-                    lente.setSasiaStok(updatedLente.getSasiaStok());
-
-                    return ResponseEntity.ok(lentetRepository.save(lente));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Lentet update(@PathVariable Long id, @Valid @RequestBody Lentet updatedLente) {
+        return service.update(id, updatedLente);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLente(@PathVariable Long id) {
-
-        if (lentetRepository.existsById(id)) {
-            lentetRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

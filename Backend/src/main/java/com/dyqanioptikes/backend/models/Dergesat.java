@@ -14,7 +14,7 @@ public class Dergesat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dergesa_id")
-    private Integer dergesaId;
+    private Long dergesaId;
 
     @ManyToOne
     @JoinColumn(name = "porosi_id", referencedColumnName = "porosi_id", nullable = false)
@@ -33,8 +33,8 @@ public class Dergesat {
     @Column(name = "data_nisjes")
     private LocalDate dataNisjes;
 
-    @Column(name = "data_mrrgjetjes")
-    private LocalDate dataMrrgjetjes;
+    @Column(name = "data_arritjes")
+    private LocalDate dataArritjes;
 
     @Column(name = "statusi_dergeses")
     private String statusiDergeses;

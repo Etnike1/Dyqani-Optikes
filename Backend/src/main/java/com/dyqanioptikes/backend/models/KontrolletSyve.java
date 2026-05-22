@@ -2,18 +2,18 @@ package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "Kontrollet_Syve")
 @Data
-public class KontrolliSyve {
+public class KontrolletSyve {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "kontroll_id")
-    private Integer kontrollId;
+    private Long kontrollId;
 
     @ManyToOne
     @JoinColumn(name = "klient_id")

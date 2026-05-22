@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DergesatRepository extends JpaRepository<Dergesat, Integer> {
+public interface DergesatRepository extends JpaRepository<Dergesat, Long> {
 
     // Gjen dërgesat sipas porosiId (Long) që vjen nga modeli Porosite
     List<Dergesat> findByPorosia_PorosiId(Long porosiId);

@@ -1,5 +1,5 @@
 CREATE TABLE Klientet (
-    klient_id INT IDENTITY(1,1) PRIMARY KEY,
+    klient_id BIGINT IDENTITY(1,1) PRIMARY KEY,
 
     emri NVARCHAR(100) NOT NULL,
     mbiemri NVARCHAR(100) NOT NULL,

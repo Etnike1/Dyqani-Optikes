@@ -1,8 +1,8 @@
 CREATE TABLE Detajet_Porosise (
-    detaj_id INT IDENTITY(1,1) PRIMARY KEY,
-    porosi_id INT NOT NULL,
-    produkt_id INT NULL, -- Mund të jetë NULL nëse shitet vetëm lente
-    lente_id INT NULL,   -- Mund të jetë NULL nëse shitet vetëm kornizë/produkt tjetër
+    detaj_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    porosi_id BIGINT NOT NULL,
+    produkt_id BIGINT NULL, -- Mund të jetë NULL nëse shitet vetëm lente
+    lente_id BIGINT NULL,   -- Mund të jetë NULL nëse shitet vetëm kornizë/produkt tjetër
     sasia INT NOT NULL CHECK (sasia > 0),
     cmimi_njesi DECIMAL(10,2) NOT NULL,
     nentotali AS (sasia * cmimi_njesi), -- Llogaritet automatikisht në SQL

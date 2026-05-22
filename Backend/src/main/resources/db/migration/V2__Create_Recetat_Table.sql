@@ -1,6 +1,6 @@
 CREATE TABLE Recetat (
-    recete_id INT IDENTITY(1,1) PRIMARY KEY,
-    klient_id INT NOT NULL,
+    recete_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    klient_id BIGINT NOT NULL,
 
     mjeku_emri NVARCHAR(150),
     data_recetes DATE DEFAULT GETDATE(),

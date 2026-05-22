@@ -1,6 +1,6 @@
 CREATE TABLE Produktet (
-    produkt_id INT IDENTITY(1,1) PRIMARY KEY,
-    kategori_id INT NOT NULL,
+    produkt_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    kategori_id BIGINT NOT NULL,
     emri_produktit NVARCHAR(100) NOT NULL,
     marka NVARCHAR(100),
     modeli NVARCHAR(100),
