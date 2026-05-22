@@ -1,3 +1,16 @@
+package com.dyqanioptikes.backend.services;
+
+
+import com.dyqanioptikes.backend.models.User;
+import com.dyqanioptikes.backend.models.Role;
+import com.dyqanioptikes.backend.models.UserRole;
+import com.dyqanioptikes.backend.dto.RegisterRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import com.dyqanioptikes.backend.repositories.UserRepository;
+import com.dyqanioptikes.backend.repositories.RoleRepository;
+import com.dyqanioptikes.backend.repositories.UserRoleRepository;
+
 @Service
 public class AuthService {
 

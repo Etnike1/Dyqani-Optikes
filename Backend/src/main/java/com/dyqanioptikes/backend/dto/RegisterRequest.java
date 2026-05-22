@@ -1,4 +1,4 @@
-package com.project.dto;
+package com.dyqanioptikes.backend.dto;
 
 public class RegisterRequest {
 
