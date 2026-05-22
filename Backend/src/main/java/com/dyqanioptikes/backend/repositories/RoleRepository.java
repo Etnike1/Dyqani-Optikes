@@ -1,12 +1,11 @@
-package com.project.repositories;
+package com.dyqanioptikes.backend.repositories;
 
-import com.project.models.ERole;
-import com.project.models.Role;
+import com.dyqanioptikes.backend.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Optional<Role> findByName(ERole name);
+    Optional<Role> findByName(String name);
 }
