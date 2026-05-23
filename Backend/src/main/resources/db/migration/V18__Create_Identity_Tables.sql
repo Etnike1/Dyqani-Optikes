@@ -26,3 +26,22 @@ CREATE TABLE user_claims (
     claim_value NVARCHAR(255) NOT NULL,
     CONSTRAINT FK_UserClaims_Users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+CREATE TABLE user_tokens (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    token NVARCHAR(500) NOT NULL,
+    token_type NVARCHAR(100),
+    created_at DATETIME2 DEFAULT GETDATE(),
+    expires_at DATETIME2,
+    CONSTRAINT FK_UserTokens_Users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE refresh_tokens (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    token NVARCHAR(500) NOT NULL,
+    expiry_date DATETIME2 NOT NULL,
+    revoked BIT DEFAULT 0,
+    created_at DATETIME2 DEFAULT GETDATE(),
+    CONSTRAINT FK_RefreshTokens_Users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
