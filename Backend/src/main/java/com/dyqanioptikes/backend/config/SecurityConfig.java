@@ -42,7 +42,7 @@ public class SecurityConfig {
                         ).hasAnyRole("EMPLOYEE", "ADMIN")
 
                         // everything else
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
