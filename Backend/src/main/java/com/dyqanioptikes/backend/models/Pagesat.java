@@ -29,6 +29,9 @@ public class Pagesat {
     @Column(name = "metoda")
     private String metodaPageses; // Kesh, Kartelë, etj.
 
+    @Column(name = "statusi")
+    private String statusi;//E perfunduar,ne process etj.
+
     @PrePersist
     protected void onCreate() {
         this.dataPageses = LocalDateTime.now();

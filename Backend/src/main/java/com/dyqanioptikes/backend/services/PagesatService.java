@@ -39,6 +39,7 @@ public class PagesatService {
             pagesa.setPorosia(updatedPagesa.getPorosia());
             pagesa.setShuma(updatedPagesa.getShuma());
             pagesa.setMetodaPageses(updatedPagesa.getMetodaPageses());
+            pagesa.setStatusi(updatedPagesa.getStatusi());
             return repository.save(pagesa);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pagesa nuk u gjet!"));
     }
