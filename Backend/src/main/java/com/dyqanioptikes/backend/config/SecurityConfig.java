@@ -15,8 +15,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity; // Import this
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity // Add this line!
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
@@ -46,8 +49,9 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/test/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

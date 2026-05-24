@@ -2,6 +2,7 @@ package com.dyqanioptikes.backend.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +12,11 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    private final String jwtSecret =
-            "sekretiytshumeeformatqenukduhettedijekush123456789";
+    @Value("${app.jwt.secret}")
+    private String jwtSecret;
 
-    private final int jwtExpirationMs = 86400000;
+    @Value("${app.jwt.expirationMs}")
+    private int jwtExpirationMs;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());

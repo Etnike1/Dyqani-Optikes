@@ -1,5 +1,6 @@
 package com.dyqanioptikes.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Porosite {
 
     @ManyToOne
     @JoinColumn(name = "klient_id", referencedColumnName = "klient_id", nullable = false)
+    @JsonIgnoreProperties("porosite")
     private Klientet klient;
 
 
