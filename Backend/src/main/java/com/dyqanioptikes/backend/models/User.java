@@ -1,11 +1,16 @@
 package com.dyqanioptikes.backend.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Data
+@Getter
 public class User {
 
     @Id
@@ -59,5 +64,8 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 }

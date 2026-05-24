@@ -45,3 +45,6 @@ CREATE TABLE refresh_tokens (
     created_at DATETIME2 DEFAULT GETDATE(),
     CONSTRAINT FK_RefreshTokens_Users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+INSERT INTO roles(name) VALUES ('ROLE_ADMIN');
+INSERT INTO roles(name) VALUES ('ROLE_EMPLOYEE');
+INSERT INTO roles(name) VALUES ('ROLE_USER');

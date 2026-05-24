@@ -1,4 +1,4 @@
-CREATE TABLE Kontrollet_Syve (
+CREATE TABLE KontrolletSyve (
     kontroll_id BIGINT IDENTITY(1,1) PRIMARY KEY,
     klient_id BIGINT NOT NULL,
     punonjes_id BIGINT NOT NULL,
