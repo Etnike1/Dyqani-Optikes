@@ -1,5 +1,6 @@
 package com.dyqanioptikes.backend.config;
 
+import com.dyqanioptikes.backend.security.JwtAuthEntryPoint;
 import com.dyqanioptikes.backend.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +24,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final JwtAuthEntryPoint unauthorizedHandler;
 
-    public SecurityConfig(JwtFilter jwtFilter) {
+    public SecurityConfig(JwtFilter jwtFilter,
+                          JwtAuthEntryPoint unauthorizedHandler) {
         this.jwtFilter = jwtFilter;
+        this.unauthorizedHandler = unauthorizedHandler;
     }
 
     @Bean
@@ -46,13 +50,31 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
+
+                .exceptionHandling(exception ->
+                        exception.authenticationEntryPoint(
+                                unauthorizedHandler
+                        )
+                )
+
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
                 )
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/test/**").permitAll()
-                        .anyRequest().authenticated()
+
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/test/**"
+                        ).permitAll()
+
+                        .requestMatchers("/api/users/**")
+                        .hasAnyRole("ADMIN", "EMPLOYEE")
+
+                        .anyRequest()
+                        .authenticated()
                 );
 
         http.addFilterBefore(
