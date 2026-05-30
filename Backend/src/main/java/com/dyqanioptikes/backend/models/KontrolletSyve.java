@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Kontrollet_Syve")
+@Table(name = "KontrolletSyve")
 @Data
 public class KontrolletSyve {
 
@@ -24,7 +24,7 @@ public class KontrolletSyve {
     private Punonjesit punonjesi;
 
     @Column(name = "recete_id") // Added
-    private Integer receteId;
+    private Long receteId;
 
     @Column(name = "data_kontrollit")
     private LocalDate dataKontrollit;

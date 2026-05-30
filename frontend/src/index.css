@@ -2,25 +2,158 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-strong: #f1f5f9;
+  --text: #0f172a;
+  --muted: #94a3b8;
+  --border: #e2e8f0;
+  --primary: #3574f7;
+  --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
 }
 
-html {
-  background: #020617;
+html.dark,
+body.dark {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-strong: #334155;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #334155;
+  --primary: #60a5fa;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  background: #020617;
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+html,
+body,
+#root {
+  height: 100%;
 }
 
-button,
-input,
-textarea {
-  font: inherit;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-card-md;
+  }
+
+  .panel-muted {
+    @apply rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4;
+  }
+
+  .page-title {
+    @apply text-2xl font-semibold tracking-tight text-[var(--text)] sm:text-3xl;
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm text-[var(--muted)];
+  }
+
+  .field-label {
+    @apply block text-sm font-medium text-[var(--muted)];
+  }
+
+  .field-input {
+    @apply mt-1 w-full rounded-xl border border-[var(--border)] bg-[var(--surface-strong)] px-3 py-2.5 text-sm text-[var(--text)] outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-500 disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-strong)] px-4 py-2.5 text-sm font-medium text-[var(--text)] transition hover:bg-[var(--surface)];
+  }
+
+  .table-base {
+    @apply w-full text-left text-sm text-[var(--text)];
+  }
+
+  .table-base thead {
+    @apply border-b border-gray-700 bg-[#1e293b];
+  }
+
+  .table-base thead th {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400;
+  }
+
+  .table-base thead th:first-child {
+    @apply rounded-tl-lg;
+  }
+
+  .table-base thead th:last-child {
+    @apply rounded-tr-lg;
+  }
+
+  .table-head {
+    @apply border-b border-gray-700 bg-[#1e293b];
+  }
+
+  .table-head-cell {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400;
+  }
+
+  .table-head .table-head-cell:first-child {
+    @apply rounded-tl-lg;
+  }
+
+  .table-head .table-head-cell:last-child {
+    @apply rounded-tr-lg;
+  }
+
+  .table-base tbody tr {
+    @apply border-b border-[var(--border)] transition hover:bg-[var(--surface-strong)];
+  }
+
+  .table-base tbody td {
+    @apply px-4 py-3;
+  }
+
+  .filter-panel {
+    @apply rounded-[28px] border border-slate-200 bg-white p-6 shadow-card-md;
+  }
+
+  .filter-grid {
+    @apply grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6;
+  }
+
+  .filter-row {
+    @apply flex flex-col flex-wrap gap-4 md:flex-row md:items-end md:gap-6;
+  }
+
+  .filter-field {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  .filter-label {
+    @apply mb-1.5 block text-sm font-medium text-gray-400;
+  }
+
+  .filter-input {
+    @apply w-full min-h-[42px] rounded-lg border border-gray-600 bg-[#1e293b] px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-60;
+  }
 }

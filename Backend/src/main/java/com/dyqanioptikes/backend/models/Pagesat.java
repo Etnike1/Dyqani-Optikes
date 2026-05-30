@@ -13,7 +13,7 @@ public class Pagesat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pagesa_id")
+    @Column(name = "pagese_id")
     private Long id;
 
     @ManyToOne

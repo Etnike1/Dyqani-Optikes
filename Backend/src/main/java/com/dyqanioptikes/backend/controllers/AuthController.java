@@ -7,10 +7,10 @@ import com.dyqanioptikes.backend.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.dyqanioptikes.backend.dto.RefreshTokenRequest;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*") // Allows React frontend to connect easily
 public class AuthController {
 
     private final AuthService authService;
@@ -30,5 +30,23 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request) {
         JwtResponse jwtResponse = authService.loginUser(request);
         return ResponseEntity.ok(jwtResponse);
+    }
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refreshToken(
+            @RequestBody RefreshTokenRequest request
+    ) {
+
+        return ResponseEntity.ok(
+                authService.refreshToken(request)
+        );
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(
+            @RequestBody RefreshTokenRequest request
+    ) {
+
+        authService.logout(request);
+
+        return ResponseEntity.ok("Logout successful");
     }
 }
