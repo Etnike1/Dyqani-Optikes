@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity; // Import this
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.http.HttpMethod;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity // Add this line!
@@ -67,17 +68,16 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+                        // 1. Lëre të hapur AUTH-in (login/register) të parin
+                        .requestMatchers("/api/auth/**").permitAll()
 
-                        .requestMatchers(
-                                "/api/auth/**",
-                                "/api/test/**"
-                        ).permitAll()
+                        // 2. Pastaj lejo leximin (GET) për të gjithë
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
 
-                        .requestMatchers("/api/users/**")
-                        .hasAnyRole("ADMIN", "EMPLOYEE")
-
-                        .anyRequest()
-                        .authenticated()
+                        // 3. Në fund, kërko autentikim për veprimet e tjera
+                        .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
                 );
 
         http.addFilterBefore(
