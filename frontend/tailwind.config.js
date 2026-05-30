@@ -1,11 +1,97 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+﻿/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          50:  '#eef5ff',
+          100: '#d9eaff',
+          200: '#bcd6ff',
+          300: '#8ebcff',
+          400: '#5a97fc',
+          500: '#3574f7',
+          600: '#1e56ec',
+          700: '#1643d9',
+          800: '#1837b0',
+          900: '#19318b',
+          950: '#141f55',
+        },
+        accent: {
+          50:  '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#b9e6fe',
+          300: '#7cd3fd',
+          400: '#37bcfa',
+          500: '#0da2eb',
+          600: '#0281c9',
+          700: '#0367a3',
+          800: '#075787',
+          900: '#0c4870',
+        },
+        neutral: {
+          50:  '#f8f8f7',
+          100: '#f0f0ee',
+          200: '#e4e3e0',
+          300: '#cccbc7',
+          400: '#a8a7a1',
+          500: '#86857e',
+          600: '#6b6a63',
+          700: '#575650',
+          800: '#48473f',
+          900: '#3d3c36',
+          950: '#252420',
+        },
+        success: {
+          50:  '#f0fdf4',
+          100: '#dcfce7',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+        },
+        warning: {
+          50:  '#fffbeb',
+          100: '#fef3c7',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+        },
+        danger: {
+          50:  '#fef2f2',
+          100: '#fee2e2',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+        },
+        info: {
+          50:  '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+      },
+      fontSize: {
+        '2xs': ['0.65rem', { lineHeight: '1rem' }],
+      },
+      boxShadow: {
+        card: '0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07)',
+        'card-md': '0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07)',
+        'card-lg': '0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07)',
+        sidebar: '2px 0 8px 0 rgb(0 0 0 / 0.06)',
+      },
+      borderRadius: {
+        xl: '0.75rem',
+        '2xl': '1rem',
+      },
+      transitionDuration: {
+        200: '200ms',
+      },
+    },
   },
   plugins: [],
 }
