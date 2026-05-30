@@ -29,6 +29,7 @@ public class Klientet {
             message = "Numri i telefonit nuk është valid"
     )
     private String telefoni;
+    @Column(name = "data_lindjes")
     private LocalDate dataLindjes;
     private String adresa;
 
