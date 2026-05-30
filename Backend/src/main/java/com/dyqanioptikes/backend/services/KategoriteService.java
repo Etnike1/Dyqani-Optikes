@@ -34,6 +34,7 @@ public class KategoriteService {
         return repository.findById(id).map(kategori -> {
             kategori.setEmriKategorise(updatedKategori.getEmriKategorise()); // Verify your Model field name
             kategori.setPershkrimi(updatedKategori.getPershkrimi()); // Verify your Model field name
+            kategori.setAktive(updatedKategori.getAktive());
             return repository.save(kategori);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Kategoria nuk u gjet!"));
     }
