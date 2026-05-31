@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KlientetRepository extends JpaRepository<Klientet, Long> {
-    // Kjo interface do te kryeje automatikisht veprimet me databaze
+    java.util.Optional<Klientet> findByUserId(Long userId);
 }

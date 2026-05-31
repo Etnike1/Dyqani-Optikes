@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { useAuth, homePathForRole } from '../context/AuthContext'
 import { APP_NAME, ACTIONS, MESSAGES } from '../constants/labels.sq'
 
 export default function LoginPage() {
@@ -13,8 +13,8 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
     setError(null)
     try {
-      await login(data)
-      navigate('/')
+      const profile = await login(data)
+      navigate(homePathForRole(profile.role))
     } catch {
       setError(MESSAGES.loginError)
     }

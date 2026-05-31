@@ -20,6 +20,11 @@ public class KlientetController {
         this.service = service;
     }
 
+    @GetMapping("/me")
+    public Klientet getMyProfile() {
+        return service.getMyProfile();
+    }
+
     @GetMapping
     public List<Klientet> getAll() {
         return service.getAllKlientet();
