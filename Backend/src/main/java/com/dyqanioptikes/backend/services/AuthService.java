@@ -35,6 +35,8 @@ import java.time.LocalDateTime;
 @Service
 public class AuthService {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AuthService.class);
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
@@ -78,12 +80,13 @@ public class AuthService {
 
     @Transactional
     public void registerUser(RegisterRequest signUpRequest) {
+        log.info("Register request received: username='{}' email='{}' mbiemri='{}'", signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getMbiemri());
         if (userRepository.findByUsername(signUpRequest.getUsername()).isPresent()) {
-            throw new RuntimeException("Username already exists!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists!");
         }
 
         if (userRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already exists!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists!");
         }
 
         User user = new User(
@@ -94,13 +97,22 @@ public class AuthService {
         userRepository.save(user);
 
         Role role = roleRepository.findByName("ROLE_CLIENT")
-                .orElseThrow(() -> new RuntimeException("ROLE_CLIENT not found!"));
+                .orElseGet(() -> {
+                    Role newRole = new Role();
+                    newRole.setName("ROLE_CLIENT");
+                    return roleRepository.save(newRole);
+                });
 
         userRoleRepository.save(new UserRole(user, role));
 
         Klientet klient = new Klientet();
         klient.setEmri(signUpRequest.getUsername());
-        klient.setMbiemri("");
+        // prefer provided last name (mbiemri), otherwise fallback to username to satisfy @NotBlank
+        String mbiemri = signUpRequest.getMbiemri();
+        if (mbiemri == null || mbiemri.isBlank()) {
+            mbiemri = signUpRequest.getUsername();
+        }
+        klient.setMbiemri(mbiemri);
         klient.setEmail(signUpRequest.getEmail());
         klient.setUserId(user.getId());
         klientetRepository.save(klient);

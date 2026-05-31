@@ -18,6 +18,12 @@ export const NAV = {
   lentet: 'Lentet',
   punonjesit: 'Punonjësit',
   furnitoret: 'Furnitorët',
+  store: 'Dyqani',
+  catalog: 'Katalogu',
+  myOrders: 'Porositë e mia',
+  myReservations: 'Rezervimet e mia',
+  myPrescriptions: 'Recetat e mia',
+  profile: 'Profili',
 }
 
 export const ACTIONS = {
