@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { APP_NAME, ACTIONS, MESSAGES } from '../constants/labels.sq'
+import { getHomeRoute } from '../utils/routing'
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm()
@@ -13,8 +14,8 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
     setError(null)
     try {
-      await login(data)
-      navigate('/')
+      const user = await login(data)
+      navigate(getHomeRoute(user.role), { replace: true })
     } catch {
       setError(MESSAGES.loginError)
     }

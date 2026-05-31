@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import DashboardPage from './pages/Dashboard'
@@ -47,383 +47,86 @@ import NewSupplier from './pages/NewSupplier'
 import SupplierDetails from './pages/SupplierDetails'
 import VisitHistoryPage from './pages/VisitHistory'
 import VisitHistoryDetailsPage from './pages/VisitHistoryDetails'
-import ProtectedRoute from './routes/ProtectedRoute'
+import StorePage from './pages/client/Store'
+import CatalogPage from './pages/client/Catalog'
+import MyOrdersPage from './pages/client/MyOrders'
+import MyReservationsPage from './pages/client/MyReservations'
+import MyPrescriptionsPage from './pages/client/MyPrescriptions'
+import ProfilePage from './pages/client/Profile'
+import HomeRedirect from './routes/HomeRedirect'
+import AdminRoute from './routes/AdminRoute'
+import EmployeeRoute from './routes/EmployeeRoute'
+import ClientRoute from './routes/ClientRoute'
 
 export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/customers"
-        element={
-          <ProtectedRoute>
-            <CustomersPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/customers/:id"
-        element={
-          <ProtectedRoute>
-            <CustomerDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/categories"
-        element={
-          <ProtectedRoute>
-            <CategoriesPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/categories/:id"
-        element={
-          <ProtectedRoute>
-            <CategoryDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/products"
-        element={
-          <ProtectedRoute>
-            <ProductsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/products/:id"
-        element={
-          <ProtectedRoute>
-            <ProductDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/inventory"
-        element={
-          <ProtectedRoute>
-            <InventoryPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/inventory/:id"
-        element={
-          <ProtectedRoute>
-            <InventoryDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/orders"
-        element={
-          <ProtectedRoute>
-            <OrdersPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/orders/new"
-        element={
-          <ProtectedRoute>
-            <NewOrderPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/orders/:id"
-        element={
-          <ProtectedRoute>
-            <OrderDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/prescriptions"
-        element={
-          <ProtectedRoute>
-            <PrescriptionsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/prescriptions/new"
-        element={
-          <ProtectedRoute>
-            <NewPrescription />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/prescriptions/:id"
-        element={
-          <ProtectedRoute>
-            <PrescriptionDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/checkups"
-        element={
-          <ProtectedRoute>
-            <CheckupsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/checkups/new"
-        element={
-          <ProtectedRoute>
-            <NewCheckup />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/checkups/:id"
-        element={
-          <ProtectedRoute>
-            <CheckupDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/visit-history"
-        element={
-          <ProtectedRoute>
-            <VisitHistoryPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/visit-history/:id"
-        element={
-          <ProtectedRoute>
-            <VisitHistoryDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/reservations"
-        element={
-          <ProtectedRoute>
-            <ReservationsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/reservations/new"
-        element={
-          <ProtectedRoute>
-            <NewReservation />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/reservations/:id"
-        element={
-          <ProtectedRoute>
-            <ReservationDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/notifications"
-        element={
-          <ProtectedRoute>
-            <NotificationsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/notifications/new"
-        element={
-          <ProtectedRoute>
-            <NewNotification />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/notifications/:id"
-        element={
-          <ProtectedRoute>
-            <NotificationDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/warranties"
-        element={
-          <ProtectedRoute>
-            <WarrantiesPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/warranties/new"
-        element={
-          <ProtectedRoute>
-            <NewWarranty />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/warranties/:id"
-        element={
-          <ProtectedRoute>
-            <WarrantyDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/warranties/:id/edit"
-        element={
-          <ProtectedRoute>
-            <EditWarranty />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/deliveries"
-        element={
-          <ProtectedRoute>
-            <DeliveriesPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/deliveries/new"
-        element={
-          <ProtectedRoute>
-            <NewDelivery />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/deliveries/:id"
-        element={
-          <ProtectedRoute>
-            <DeliveryDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/lenses"
-        element={
-          <ProtectedRoute>
-            <LensesPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/lenses/new"
-        element={
-          <ProtectedRoute>
-            <NewLens />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/lenses/:id"
-        element={
-          <ProtectedRoute>
-            <LensDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/employees"
-        element={
-          <ProtectedRoute>
-            <EmployeesPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/employees/new"
-        element={
-          <ProtectedRoute>
-            <NewEmployee />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/employees/:id"
-        element={
-          <ProtectedRoute>
-            <EmployeeDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/suppliers"
-        element={
-          <ProtectedRoute>
-            <SuppliersPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/suppliers/new"
-        element={
-          <ProtectedRoute>
-            <NewSupplier />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/suppliers/:id"
-        element={
-          <ProtectedRoute>
-            <SupplierDetails />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/payments"
-        element={
-          <ProtectedRoute>
-            <PaymentsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/payments/new"
-        element={
-          <ProtectedRoute>
-            <NewPaymentPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/payments/:id"
-        element={
-          <ProtectedRoute>
-            <PaymentDetailsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="*" element={<Navigate to="/" replace />} />
+
+      <Route path="/" element={<HomeRedirect />} />
+
+      {/* Client portal */}
+      <Route path="/store" element={<ClientRoute><StorePage /></ClientRoute>} />
+      <Route path="/catalog" element={<ClientRoute><CatalogPage /></ClientRoute>} />
+      <Route path="/my-orders" element={<ClientRoute><MyOrdersPage /></ClientRoute>} />
+      <Route path="/my-reservations" element={<ClientRoute><MyReservationsPage /></ClientRoute>} />
+      <Route path="/my-prescriptions" element={<ClientRoute><MyPrescriptionsPage /></ClientRoute>} />
+      <Route path="/profile" element={<ClientRoute><ProfilePage /></ClientRoute>} />
+
+      {/* Staff dashboard */}
+      <Route path="/dashboard" element={<EmployeeRoute><DashboardPage /></EmployeeRoute>} />
+      <Route path="/admin/dashboard" element={<EmployeeRoute><DashboardPage /></EmployeeRoute>} />
+
+      {/* Employee + Admin shared routes */}
+      <Route path="/customers" element={<EmployeeRoute><CustomersPage /></EmployeeRoute>} />
+      <Route path="/customers/:id" element={<EmployeeRoute><CustomerDetailsPage /></EmployeeRoute>} />
+      <Route path="/orders" element={<EmployeeRoute><OrdersPage /></EmployeeRoute>} />
+      <Route path="/orders/new" element={<EmployeeRoute><NewOrderPage /></EmployeeRoute>} />
+      <Route path="/orders/:id" element={<EmployeeRoute><OrderDetailsPage /></EmployeeRoute>} />
+      <Route path="/payments" element={<EmployeeRoute><PaymentsPage /></EmployeeRoute>} />
+      <Route path="/payments/new" element={<EmployeeRoute><NewPaymentPage /></EmployeeRoute>} />
+      <Route path="/payments/:id" element={<EmployeeRoute><PaymentDetailsPage /></EmployeeRoute>} />
+      <Route path="/prescriptions" element={<EmployeeRoute><PrescriptionsPage /></EmployeeRoute>} />
+      <Route path="/prescriptions/new" element={<EmployeeRoute><NewPrescription /></EmployeeRoute>} />
+      <Route path="/prescriptions/:id" element={<EmployeeRoute><PrescriptionDetails /></EmployeeRoute>} />
+      <Route path="/checkups" element={<EmployeeRoute><CheckupsPage /></EmployeeRoute>} />
+      <Route path="/checkups/new" element={<EmployeeRoute><NewCheckup /></EmployeeRoute>} />
+      <Route path="/checkups/:id" element={<EmployeeRoute><CheckupDetails /></EmployeeRoute>} />
+      <Route path="/reservations" element={<EmployeeRoute><ReservationsPage /></EmployeeRoute>} />
+      <Route path="/reservations/new" element={<EmployeeRoute><NewReservation /></EmployeeRoute>} />
+      <Route path="/reservations/:id" element={<EmployeeRoute><ReservationDetails /></EmployeeRoute>} />
+      <Route path="/deliveries" element={<EmployeeRoute><DeliveriesPage /></EmployeeRoute>} />
+      <Route path="/deliveries/new" element={<EmployeeRoute><NewDelivery /></EmployeeRoute>} />
+      <Route path="/deliveries/:id" element={<EmployeeRoute><DeliveryDetails /></EmployeeRoute>} />
+
+      {/* Admin-only routes */}
+      <Route path="/categories" element={<AdminRoute><CategoriesPage /></AdminRoute>} />
+      <Route path="/categories/:id" element={<AdminRoute><CategoryDetailsPage /></AdminRoute>} />
+      <Route path="/products" element={<AdminRoute><ProductsPage /></AdminRoute>} />
+      <Route path="/products/:id" element={<AdminRoute><ProductDetailsPage /></AdminRoute>} />
+      <Route path="/inventory" element={<AdminRoute><InventoryPage /></AdminRoute>} />
+      <Route path="/inventory/:id" element={<AdminRoute><InventoryDetailsPage /></AdminRoute>} />
+      <Route path="/notifications" element={<AdminRoute><NotificationsPage /></AdminRoute>} />
+      <Route path="/notifications/new" element={<AdminRoute><NewNotification /></AdminRoute>} />
+      <Route path="/notifications/:id" element={<AdminRoute><NotificationDetails /></AdminRoute>} />
+      <Route path="/warranties" element={<AdminRoute><WarrantiesPage /></AdminRoute>} />
+      <Route path="/warranties/new" element={<AdminRoute><NewWarranty /></AdminRoute>} />
+      <Route path="/warranties/:id" element={<AdminRoute><WarrantyDetails /></AdminRoute>} />
+      <Route path="/warranties/:id/edit" element={<AdminRoute><EditWarranty /></AdminRoute>} />
+      <Route path="/lenses" element={<AdminRoute><LensesPage /></AdminRoute>} />
+      <Route path="/lenses/new" element={<AdminRoute><NewLens /></AdminRoute>} />
+      <Route path="/lenses/:id" element={<AdminRoute><LensDetails /></AdminRoute>} />
+      <Route path="/employees" element={<AdminRoute><EmployeesPage /></AdminRoute>} />
+      <Route path="/employees/new" element={<AdminRoute><NewEmployee /></AdminRoute>} />
+      <Route path="/employees/:id" element={<AdminRoute><EmployeeDetails /></AdminRoute>} />
+      <Route path="/suppliers" element={<AdminRoute><SuppliersPage /></AdminRoute>} />
+      <Route path="/suppliers/new" element={<AdminRoute><NewSupplier /></AdminRoute>} />
+      <Route path="/suppliers/:id" element={<AdminRoute><SupplierDetails /></AdminRoute>} />
+      <Route path="/visit-history" element={<AdminRoute><VisitHistoryPage /></AdminRoute>} />
+      <Route path="/visit-history/:id" element={<AdminRoute><VisitHistoryDetailsPage /></AdminRoute>} />
+
+      <Route path="*" element={<HomeRedirect />} />
     </Routes>
   )
 }
-
