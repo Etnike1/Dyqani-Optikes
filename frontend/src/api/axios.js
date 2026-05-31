@@ -1,15 +1,12 @@
 import axios from 'axios'
 import { API_BASE } from './config'
 import { refreshToken as refreshTokenApi } from './auth'
-import { userFromAuthResponse, userFromToken } from '../utils/jwt'
-import { notifySessionExpired, notifyTokensRefreshed } from '../auth/authSession'
+import { notifySessionExpired } from '../utils/authSession'
 
 const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
 })
-
-const isAuthEndpoint = (url = '') => url.includes('/auth/')
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('accessToken')
@@ -31,9 +28,7 @@ api.interceptors.response.use(
   (res) => res,
   async (err) => {
     const original = err.config
-    const status = err.response?.status
-
-    if (!original || status !== 401 || original._retry || isAuthEndpoint(original.url)) {
+    if (!original || err.response?.status !== 401 || original._retry) {
       return Promise.reject(err)
     }
 
@@ -49,37 +44,32 @@ api.interceptors.response.use(
     original._retry = true
     isRefreshing = true
 
-    const storedRefreshToken = localStorage.getItem('refreshToken')
-    if (!storedRefreshToken) {
+    const refreshToken = localStorage.getItem('refreshToken')
+    if (!refreshToken) {
+      isRefreshing = false
       notifySessionExpired()
       return Promise.reject(err)
     }
 
     try {
-      const data = await refreshTokenApi(storedRefreshToken)
-      persistRefreshedTokens(data)
-      notifyTokensRefreshed(data)
-      processQueue(null, data.token)
-      original.headers.Authorization = `Bearer ${data.token}`
+      const data = await refreshTokenApi(refreshToken)
+      const { token } = data
+      localStorage.setItem('accessToken', token)
+      api.defaults.headers.Authorization = `Bearer ${token}`
+      processQueue(null, token)
+      original.headers.Authorization = `Bearer ${token}`
       return api(original)
     } catch (refreshError) {
       processQueue(refreshError, null)
-      notifySessionExpired()
+      const status = refreshError.response?.status
+      if (status === 400 || status === 403 || !status) {
+        notifySessionExpired()
+      }
       return Promise.reject(refreshError)
     } finally {
       isRefreshing = false
     }
   }
 )
-
-function persistRefreshedTokens(data) {
-  localStorage.setItem('accessToken', data.token)
-  if (data.refreshToken) {
-    localStorage.setItem('refreshToken', data.refreshToken)
-  }
-  const parsed = userFromAuthResponse(data)
-  localStorage.setItem('user', JSON.stringify(parsed))
-  api.defaults.headers.Authorization = `Bearer ${data.token}`
-}
 
 export default api

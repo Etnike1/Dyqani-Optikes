@@ -3,19 +3,17 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import NotificationDropdown from '../Notifications/NotificationDropdown'
 import { fetchNotifications, updateNotification, deleteNotification } from '../../api/notifications'
-import { APP_NAME, ACTIONS } from '../../constants/labels.sq'
-import { ROLE_LABELS } from '../../constants/roles'
-import { isClientRole, normalizeRole } from '../../utils/roleUtils'
+import { ACTIONS, APP_NAME } from '../../constants/labels.sq'
+import { ROLE_LABELS } from './navConfig'
 
 export default function Navbar({ onMobileMenuClick }) {
-  const { user, role, logout, getDefaultRoute } = useAuth()
+  const { user, logout } = useAuth()
+  const roleLabel = ROLE_LABELS[user?.role] ?? user?.role
   const [notifications, setNotifications] = useState([])
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const wrapperRef = useRef(null)
-  const showNotifications = !isClientRole(role ?? user?.role)
 
   useEffect(() => {
-    if (!showNotifications) return undefined
     async function loadNotifications() {
       try {
         const data = await fetchNotifications()
@@ -25,7 +23,7 @@ export default function Navbar({ onMobileMenuClick }) {
       }
     }
     loadNotifications()
-  }, [showNotifications])
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -38,8 +36,6 @@ export default function Navbar({ onMobileMenuClick }) {
   }, [])
 
   const unreadCount = notifications.filter((item) => !item.lexuar).length
-  const homeLink = getDefaultRoute?.() || '/dashboard'
-  const roleLabel = ROLE_LABELS[normalizeRole(role ?? user?.role)] || normalizeRole(role ?? user?.role) || ''
 
   const handleToggleRead = async (notification) => {
     try {
@@ -75,47 +71,47 @@ export default function Navbar({ onMobileMenuClick }) {
         >
           <span className="text-lg">☰</span>
         </button>
-        <Link to={homeLink} className="text-lg font-semibold text-white md:hidden">
+        <Link to="/" className="text-lg font-semibold text-white md:hidden">
           {APP_NAME}
         </Link>
       </div>
 
       <div className="flex items-center gap-3">
-        {showNotifications && (
-          <div ref={wrapperRef} className="relative">
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation()
-                setDropdownOpen((value) => !value)
-              }}
-              aria-expanded={dropdownOpen}
-              aria-label={`Njoftimet: ${unreadCount} të palexuara`}
-              className="relative rounded-full border border-slate-700 bg-slate-800 p-2 text-slate-200 hover:bg-slate-700"
-            >
-              <span aria-hidden="true" className="text-lg">
-                🔔
+        <div ref={wrapperRef} className="relative">
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation()
+              setDropdownOpen((value) => !value)
+            }}
+            aria-expanded={dropdownOpen}
+            aria-label={`Njoftimet: ${unreadCount} të palexuara`}
+            className="relative rounded-full border border-slate-700 bg-slate-800 p-2 text-slate-200 hover:bg-slate-700"
+          >
+            <span aria-hidden="true" className="text-lg">
+              🔔
+            </span>
+            {unreadCount > 0 && (
+              <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-primary-500 px-1.5 text-[0.65rem] font-semibold text-white">
+                {unreadCount}
               </span>
-              {unreadCount > 0 && (
-                <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-primary-500 px-1.5 text-[0.65rem] font-semibold text-white">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
-            {dropdownOpen && (
-              <NotificationDropdown
-                notifications={notifications}
-                onToggleRead={handleToggleRead}
-                onDelete={handleDelete}
-                onClose={() => setDropdownOpen(false)}
-              />
             )}
-          </div>
-        )}
-        <div className="hidden text-right sm:block">
-          <div className="text-sm font-medium text-slate-200">{user?.username}</div>
-          <div className="text-xs text-slate-400">{roleLabel}</div>
+          </button>
+          {dropdownOpen && (
+            <NotificationDropdown
+              notifications={notifications}
+              onToggleRead={handleToggleRead}
+              onDelete={handleDelete}
+              onClose={() => setDropdownOpen(false)}
+            />
+          )}
         </div>
+        <span className="hidden text-sm text-slate-300 sm:inline">{user?.username}</span>
+        {roleLabel && (
+          <span className="rounded-full bg-primary-600/20 px-2.5 py-0.5 text-xs font-medium text-primary-300">
+            {roleLabel}
+          </span>
+        )}
         <button type="button" onClick={logout} className="text-sm font-medium text-red-400 hover:text-red-300">
           {ACTIONS.logout}
         </button>

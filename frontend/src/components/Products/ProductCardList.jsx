@@ -5,7 +5,7 @@ import { Edit3, Trash2 } from 'lucide-react'
 import Button from '../ui/Button'
 import { ACTIONS, MESSAGES, STATUS_LABELS, TABLE } from '../../constants/labels.sq'
 
-export default function ProductCardList({ products, onEdit, onDelete }) {
+export default function ProductCardList({ products, onEdit, onDelete, readOnly = false }) {
   return (
     <div className="grid gap-4 sm:hidden">
       {products.map((product) => (
@@ -35,19 +35,26 @@ export default function ProductCardList({ products, onEdit, onDelete }) {
               </div>
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link to={`/products/${product.produktId}`} className="text-sm font-medium text-primary hover:underline">
-                {ACTIONS.viewDetails}
-              </Link>
-              <Button type="button" onClick={() => onEdit(product)} className="bg-slate-900 px-3 py-2 text-xs hover:bg-slate-800">
-                <Edit3 className="h-4 w-4" />
-                {ACTIONS.edit}
-              </Button>
-              <Button type="button" onClick={() => onDelete(product)} className="bg-red-600 px-3 py-2 text-xs hover:bg-red-700">
-                <Trash2 className="h-4 w-4" />
-                {ACTIONS.delete}
-              </Button>
-            </div>
+            {!readOnly && (
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link to={`/products/${product.produktId}`} className="text-sm font-medium text-primary hover:underline">
+                  {ACTIONS.viewDetails}
+                </Link>
+                <Button type="button" onClick={() => onEdit(product)} className="bg-slate-900 px-3 py-2 text-xs hover:bg-slate-800">
+                  <Edit3 className="h-4 w-4" />
+                  {ACTIONS.edit}
+                </Button>
+                <Button type="button" onClick={() => onDelete(product)} className="bg-red-600 px-3 py-2 text-xs hover:bg-red-700">
+                  <Trash2 className="h-4 w-4" />
+                  {ACTIONS.delete}
+                </Button>
+              </div>
+            )}
+            {readOnly && (
+              <div className="mt-5">
+                <p className="text-lg font-semibold text-slate-900">{formatCurrency(product.cmimi ?? 0)}</p>
+              </div>
+            )}
           </div>
         </article>
       ))}

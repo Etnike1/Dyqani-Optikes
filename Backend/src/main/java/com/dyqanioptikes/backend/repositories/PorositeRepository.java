@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PorositeRepository extends JpaRepository<Porosite, Long> {
+    java.util.List<Porosite> findByKlient_Id(Long klientId);
 }

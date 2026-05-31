@@ -229,6 +229,7 @@ export const STATUS_LABELS = {
 export const ROLES = {
   admin: 'Administrator',
   employee: 'Punonjës',
+  client: 'Klient',
   user: 'Përdorues',
 }
 

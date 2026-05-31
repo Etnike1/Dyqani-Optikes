@@ -5,7 +5,7 @@ const ROLE_OPTIONS = [
   { value: '', label: 'Select a role' },
   { value: 'ROLE_ADMIN', label: 'Admin' },
   { value: 'ROLE_EMPLOYEE', label: 'Employee' },
-  { value: 'ROLE_USER', label: 'User' }
+  { value: 'ROLE_CLIENT', label: 'Client' }
 ]
 
 export default function EmployeeForm({ defaultValues = {}, onSubmit, onCancel, submitting }) {

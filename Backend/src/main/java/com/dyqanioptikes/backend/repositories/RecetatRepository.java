@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface RecetatRepository extends JpaRepository<Recetat, Long> {
-    // I kemi lënë metodat bosh që të niset aplikacioni pa gabime
+    List<Recetat> findByKlient_Id(Long klientId);
 }

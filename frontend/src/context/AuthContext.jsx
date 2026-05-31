@@ -1,74 +1,74 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import api from '../api/axios'
 import { useNavigate } from 'react-router-dom'
 import * as authApi from '../api/auth'
-import { userFromAuthResponse, userFromToken } from '../utils/jwt'
-import { isAdminRole, isClientRole, isEmployeeRole, normalizeRole } from '../utils/roleUtils'
-import { getHomeRoute } from '../utils/routing'
-import { registerAuthSessionHandlers } from '../auth/authSession'
+import { extractUserFromToken } from '../utils/jwt'
+import { clearAuthStorage, setSessionExpiredHandler } from '../utils/authSession'
 
 const AuthContext = createContext(null)
 
 export const useAuth = () => useContext(AuthContext)
 
-function loadUserFromStorage() {
-  const token = localStorage.getItem('accessToken')
-  if (!token) return null
-  return userFromToken(token)
+const ROLE_HOME = {
+  ROLE_ADMIN: '/dashboard',
+  ROLE_EMPLOYEE: '/dashboard',
+  ROLE_CLIENT: '/store',
 }
 
-function persistSession(token, refreshToken, userData) {
-  localStorage.setItem('accessToken', token)
-  if (refreshToken) {
-    localStorage.setItem('refreshToken', refreshToken)
-  }
-  localStorage.setItem('user', JSON.stringify(userData))
-  api.defaults.headers.Authorization = `Bearer ${token}`
-}
+export const homePathForRole = (role) => ROLE_HOME[role] ?? '/login'
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(loadUserFromStorage)
+  const [user, setUser] = useState(() => {
+    const stored = localStorage.getItem('user')
+    return stored ? JSON.parse(stored) : null
+  })
   const navigate = useNavigate()
 
-  const clearSession = () => {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('user')
+  const persistUser = useCallback((token, refreshToken, profile) => {
+    localStorage.setItem('accessToken', token)
+    if (refreshToken) {
+      localStorage.setItem('refreshToken', refreshToken)
+    }
+    localStorage.setItem('user', JSON.stringify(profile))
+    api.defaults.headers.Authorization = `Bearer ${token}`
+    setUser(profile)
+  }, [])
+
+  const clearSession = useCallback(() => {
+    clearAuthStorage()
     api.defaults.headers.Authorization = null
     setUser(null)
-  }
+  }, [])
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
     if (token) {
       api.defaults.headers.Authorization = `Bearer ${token}`
-      const parsed = userFromToken(token)
-      if (parsed?.role) {
-        setUser(parsed)
-        localStorage.setItem('user', JSON.stringify(parsed))
+      const claims = extractUserFromToken(token)
+      if (claims?.username && claims?.role) {
+        setUser((current) => current ?? claims)
       }
     }
+  }, [])
 
-    registerAuthSessionHandlers({
-      onTokensRefreshed: (data) => {
-        const nextUser = userFromAuthResponse(data)
-        persistSession(data.token, data.refreshToken, nextUser)
-        setUser(nextUser)
-      },
-      onSessionExpired: () => {
-        clearSession()
-        navigate('/login', { replace: true })
-      },
+  useEffect(() => {
+    setSessionExpiredHandler(() => {
+      clearSession()
+      navigate('/login', { replace: true })
     })
-  }, [navigate])
+    return () => setSessionExpiredHandler(null)
+  }, [clearSession, navigate])
 
   const login = async ({ username, password }) => {
-    clearSession()
     const data = await authApi.login({ username, password })
-    const nextUser = userFromAuthResponse(data)
-    persistSession(data.token, data.refreshToken, nextUser)
-    setUser(nextUser)
-    return nextUser
+    const claims = extractUserFromToken(data.token)
+    const profile = {
+      userId: data.userId ?? claims?.userId,
+      username: data.username ?? claims?.username,
+      role: data.role ?? claims?.role,
+    }
+    persistUser(data.token, data.refreshToken, profile)
+    return profile
   }
 
   const logout = async () => {
@@ -78,29 +78,23 @@ export const AuthProvider = ({ children }) => {
         await authApi.logoutRequest(refreshToken)
       }
     } catch {
-      /* ignore */
+      /* best-effort revoke */
     }
     clearSession()
-    navigate('/login')
+    navigate('/login', { replace: true })
   }
 
-  const role = normalizeRole(user?.role)
-
-  const isAdmin = () => isAdminRole(role)
-  const isEmployee = () => isEmployeeRole(role)
-  const isClient = () => isClientRole(role)
-  const getDefaultRoute = () => getHomeRoute(role)
-
-  const value = {
-    user,
-    role,
-    login,
-    logout,
-    isAdmin,
-    isEmployee,
-    isClient,
-    getDefaultRoute,
-  }
+  const value = useMemo(
+    () => ({
+      user,
+      role: user?.role ?? null,
+      isAuthenticated: Boolean(user),
+      login,
+      logout,
+      clearSession,
+    }),
+    [user, login, logout, clearSession]
+  )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

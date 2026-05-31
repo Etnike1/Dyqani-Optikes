@@ -1,55 +1,33 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
-import { ROLE_ADMIN, ROLE_CLIENT, ROLE_EMPLOYEE } from '../../constants/roles'
-import { normalizeRole } from '../../utils/roleUtils'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import AdminSidebar from './AdminSidebar'
 import EmployeeSidebar from './EmployeeSidebar'
-import ClientSidebar from './ClientSidebar'
-
-function resolveSidebar(role) {
-  switch (normalizeRole(role)) {
-    case ROLE_ADMIN:
-      return AdminSidebar
-    case ROLE_EMPLOYEE:
-      return EmployeeSidebar
-    case ROLE_CLIENT:
-      return ClientSidebar
-    default:
-      return null
-  }
-}
+import { ClientLayout } from './ClientNavbar'
+import { useAuth } from '../../context/AuthContext'
 
 export default function RoleBasedLayout({ children }) {
-  const { user, role } = useAuth()
+  const { role } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  const effectiveRole = normalizeRole(role ?? user?.role)
-
   useEffect(() => {
+    if (role === 'ROLE_CLIENT') return undefined
     document.documentElement.classList.add('dark')
     document.body.classList.add('dark')
     return () => {
       document.documentElement.classList.remove('dark')
       document.body.classList.remove('dark')
     }
-  }, [])
+  }, [role])
 
-  const SidebarComponent = useMemo(() => resolveSidebar(effectiveRole), [effectiveRole])
-
-  const sidebarProps = {
-    open: sidebarOpen,
-    onClose: () => setSidebarOpen(false),
+  if (role === 'ROLE_CLIENT') {
+    return <ClientLayout>{children}</ClientLayout>
   }
 
-  if (!SidebarComponent) {
-    return <Navigate to="/login" replace />
-  }
+  const Sidebar = role === 'ROLE_ADMIN' ? AdminSidebar : EmployeeSidebar
 
   return (
     <div className="app-shell min-h-screen bg-[var(--bg)] text-[var(--text)]">
-      <SidebarComponent key={effectiveRole} {...sidebarProps} />
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex min-h-screen flex-col md:pl-60 lg:pl-64">
         <Navbar onMobileMenuClick={() => setSidebarOpen((open) => !open)} />
         <main className="flex-1 px-4 py-4 sm:px-6 sm:py-5">{children}</main>

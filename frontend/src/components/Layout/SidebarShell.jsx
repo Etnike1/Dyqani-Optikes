@@ -2,10 +2,9 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { APP_NAME } from '../../constants/labels.sq'
 
-export const NavItem = ({ to, children, onClick, end = false }) => (
+export const NavItem = ({ to, children, onClick }) => (
   <NavLink
     to={to}
-    end={end}
     onClick={onClick}
     className={({ isActive }) =>
       `block rounded-2xl px-4 py-2.5 text-sm font-medium transition ${
@@ -19,7 +18,7 @@ export const NavItem = ({ to, children, onClick, end = false }) => (
   </NavLink>
 )
 
-export default function SidebarShell({ items, subtitle, open = false, onClose = () => {} }) {
+export default function SidebarShell({ items, open = false, onClose = () => {}, subtitle = 'Menaxhimi i dyqanit' }) {
   return (
     <>
       <div
@@ -41,7 +40,7 @@ export default function SidebarShell({ items, subtitle, open = false, onClose = 
         </div>
         <nav className="flex-1 space-y-0.5">
           {items.map((item) => (
-            <NavItem key={item.to} to={item.to} end={item.end} onClick={onClose}>
+            <NavItem key={item.to} to={item.to} onClick={onClose}>
               {item.label}
             </NavItem>
           ))}

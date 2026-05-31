@@ -1,64 +1,26 @@
-import { normalizeRole, resolvePrimaryRole } from './roleUtils'
-
-export function decodeJwtPayload(token) {
+export function decodeJwt(token) {
   if (!token) return null
   try {
-    const parts = token.split('.')
-    if (parts.length !== 3) return null
-    const payload = parts[1].replace(/-/g, '+').replace(/_/g, '/')
-    return JSON.parse(atob(payload))
+    const payload = token.split('.')[1]
+    const normalized = payload.replace(/-/g, '+').replace(/_/g, '/')
+    const json = decodeURIComponent(
+      atob(normalized)
+        .split('')
+        .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+        .join('')
+    )
+    return JSON.parse(json)
   } catch {
     return null
   }
 }
 
-function collectRolesFromPayload(payload) {
-  const rawRoles = payload.roles
-  const fromArray = Array.isArray(rawRoles) ? rawRoles : rawRoles ? [rawRoles] : []
-  const fromRoleClaim = payload.role
-    ? Array.isArray(payload.role)
-      ? payload.role
-      : [payload.role]
-    : []
-  return [...fromArray, ...fromRoleClaim]
-}
-
-/** Build user state from JWT — token claims always win over stale localStorage fallback. */
-export function userFromToken(token, fallback = {}) {
-  const payload = decodeJwtPayload(token)
-
-  if (!payload) {
-    if (!fallback.username && !fallback.role) return null
-    const role = resolvePrimaryRole(fallback.role, fallback.roles)
-    return {
-      userId: fallback.userId ?? null,
-      username: fallback.username ?? '',
-      role,
-      roles: role ? [role] : [],
-    }
-  }
-
-  const allRoles = collectRolesFromPayload(payload)
-  const role = resolvePrimaryRole(null, allRoles)
-
+export function extractUserFromToken(token) {
+  const claims = decodeJwt(token)
+  if (!claims) return null
   return {
-    userId: payload.userId ?? fallback.userId ?? null,
-    username: payload.username ?? payload.sub ?? fallback.username ?? '',
-    role,
-    roles: [...new Set(allRoles.map(normalizeRole).filter(Boolean))],
-  }
-}
-
-/** Merge API login/refresh response with decoded JWT (response role included in resolution). */
-export function userFromAuthResponse(data) {
-  const fromToken = userFromToken(data.token) || {}
-  const responseRoles = data.role ? [data.role, ...(fromToken.roles || [])] : fromToken.roles
-  const role = resolvePrimaryRole(data.role, responseRoles)
-
-  return {
-    userId: data.userId ?? fromToken.userId ?? null,
-    username: data.username ?? fromToken.username ?? '',
-    role,
-    roles: [...new Set((responseRoles || []).map(normalizeRole).filter(Boolean))],
+    userId: claims.userId,
+    username: claims.username ?? claims.sub,
+    role: claims.role ?? claims.roles?.[0] ?? null,
   }
 }
