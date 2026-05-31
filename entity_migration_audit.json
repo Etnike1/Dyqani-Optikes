@@ -1,0 +1,1966 @@
+{
+    "Tables":  [
+                   {
+                       "Table":  "produktet",
+                       "Columns":  [
+                                       "produkt_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "user_roles",
+                       "Columns":  [
+                                       "id"
+                                   ]
+                   },
+                   {
+                       "Table":  "furnitoret",
+                       "Columns":  [
+                                       "furnitor_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "recetat",
+                       "Columns":  [
+                                       "recete_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "lentet",
+                       "Columns":  [
+                                       "lente_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "detajet_porosise",
+                       "Columns":  [
+                                       "detaj_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "punonjesit",
+                       "Columns":  [
+                                       "punonjes_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "user_tokens",
+                       "Columns":  [
+                                       "id"
+                                   ]
+                   },
+                   {
+                       "Table":  "roles",
+                       "Columns":  [
+                                       "id"
+                                   ]
+                   },
+                   {
+                       "Table":  "kategorite",
+                       "Columns":  [
+                                       "kategori_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "njoftimet",
+                       "Columns":  [
+                                       "njoftim_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "user_claims",
+                       "Columns":  [
+                                       "id"
+                                   ]
+                   },
+                   {
+                       "Table":  "pagesat",
+                       "Columns":  [
+                                       "pagese_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "rezervimet",
+                       "Columns":  [
+                                       "rezervim_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "kontrolletsyve",
+                       "Columns":  [
+                                       "kontroll_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "inventari",
+                       "Columns":  [
+                                       "inventar_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "klientet",
+                       "Columns":  [
+                                       "user_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "refresh_tokens",
+                       "Columns":  [
+                                       "id"
+                                   ]
+                   },
+                   {
+                       "Table":  "users",
+                       "Columns":  [
+                                       "id"
+                                   ]
+                   },
+                   {
+                       "Table":  "dergesat",
+                       "Columns":  [
+                                       "dergesa_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "garancite",
+                       "Columns":  [
+                                       "garancia_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "porosite",
+                       "Columns":  [
+                                       "porosi_id"
+                                   ]
+                   },
+                   {
+                       "Table":  "historikuvizitave",
+                       "Columns":  [
+                                       "historiku_id"
+                                   ]
+                   }
+               ],
+    "Entities":  [
+                     {
+                         "Entity":  "Dergesat.java",
+                         "Table":  "dergesat",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "dergesaId",
+                                            "Column":  "dergesa_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"dergesa_id\")"
+                                        },
+                                        {
+                                            "Field":  "porosia",
+                                            "Column":  "porosi_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"porosi_id\", referencedColumnName = \"porosi_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "kompaniaTransportit",
+                                            "Column":  "kompania_transportit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"kompania_transportit\")"
+                                        },
+                                        {
+                                            "Field":  "numriGjurmimit",
+                                            "Column":  "numri_gjurmimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"numri_gjurmimit\")"
+                                        },
+                                        {
+                                            "Field":  "adresaDergeses",
+                                            "Column":  "adresa_dergeses",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank(message = \"Adresa e dërgesës është e detyrueshme\"); @Column(name = \"adresa_dergeses\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "dataNisjes",
+                                            "Column":  "data_nisjes",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_nisjes\")"
+                                        },
+                                        {
+                                            "Field":  "dataArritjes",
+                                            "Column":  "data_arritjes",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_arritjes\")"
+                                        },
+                                        {
+                                            "Field":  "statusiDergeses",
+                                            "Column":  "statusi_dergeses",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"statusi_dergeses\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "DetajetPorosise.java",
+                         "Table":  "detajet_porosise",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "detajId",
+                                            "Column":  "detaj_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"detaj_id\")"
+                                        },
+                                        {
+                                            "Field":  "sasia",
+                                            "Column":  "sasia",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotNull(message = \"Sasia është e detyrueshme\"); @Min(value = 1, message = \"Sasia duhet të jetë minimum 1\"); @Column(name = \"sasia\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "cmimiNjesi",
+                                            "Column":  "cmimi_njesi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotNull(message = \"Cmimi është i detyrueshëm\"); @Column(name = \"cmimi_njesi\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "nentotali",
+                                            "Column":  "nentotali",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"nentotali\", insertable = false, updatable = false)"
+                                        },
+                                        {
+                                            "Field":  "porosia",
+                                            "Column":  "porosi_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"porosi_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "produkti",
+                                            "Column":  "produkt_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"produkt_id\")"
+                                        },
+                                        {
+                                            "Field":  "lentet",
+                                            "Column":  "lente_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"lente_id\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Furnitoret.java",
+                         "Table":  "furnitoret",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "furnitorId",
+                                            "Column":  "furnitor_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"furnitor_id\")"
+                                        },
+                                        {
+                                            "Field":  "emriKompanise",
+                                            "Column":  "emri_kompanise",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(name = \"emri_kompanise\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "personiKontaktit",
+                                            "Column":  "personi_kontaktit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"personi_kontaktit\")"
+                                        },
+                                        {
+                                            "Field":  "email",
+                                            "Column":  "email",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "telefoni",
+                                            "Column":  "telefoni",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "produktetFurnizuara",
+                                            "Column":  "produktet_furnizuara",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"produktet_furnizuara\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Garancite.java",
+                         "Table":  "garancite",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "garanciaId",
+                                            "Column":  "garancia_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"garancia_id\")"
+                                        },
+                                        {
+                                            "Field":  "dataFillimit",
+                                            "Column":  "data_fillimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotNull(message = \"Data e fillimit është e detyrueshme\"); @Column(name = \"data_fillimit\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "dataSkadimit",
+                                            "Column":  "data_skadimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotNull(message = \"Data e skadimit është e detyrueshme\"); @Column(name = \"data_skadimit\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "kushtet",
+                                            "Column":  "kushtet",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank(message = \"Kushtet e garancisë janë të detyrueshme\"); @Column(name = \"kushtet\", length = 500)"
+                                        },
+                                        {
+                                            "Field":  "porosia",
+                                            "Column":  "porosi_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"porosi_id\", referencedColumnName = \"porosi_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "klienti",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\", referencedColumnName = \"klient_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "produkti",
+                                            "Column":  "produkt_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"produkt_id\")"
+                                        },
+                                        {
+                                            "Field":  "lentet",
+                                            "Column":  "lente_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"lente_id\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "HistorikuVizitave.java",
+                         "Table":  "historikuvizitave",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "historikuId",
+                                            "Column":  "historiku_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"historiku_id\")"
+                                        },
+                                        {
+                                            "Field":  "klienti",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "kontrolli",
+                                            "Column":  "kontroll_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"kontroll_id\")"
+                                        },
+                                        {
+                                            "Field":  "dataVizites",
+                                            "Column":  "data_vizites",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_vizites\")"
+                                        },
+                                        {
+                                            "Field":  "pershkrimi",
+                                            "Column":  "pershkrimi",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "rekomandimi",
+                                            "Column":  "rekomandimi",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Inventari.java",
+                         "Table":  "inventari",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "inventarId",
+                                            "Column":  "inventar_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"inventar_id\")"
+                                        },
+                                        {
+                                            "Field":  "produkt",
+                                            "Column":  "produkt_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"produkt_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "sasiaAktuale",
+                                            "Column":  "sasia_aktuale",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"sasia_aktuale\")"
+                                        },
+                                        {
+                                            "Field":  "sasiaMinimale",
+                                            "Column":  "sasia_minimale",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"sasia_minimale\")"
+                                        },
+                                        {
+                                            "Field":  "dataPerditesimit",
+                                            "Column":  "data_perditesimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_perditesimit\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Kategorite.java",
+                         "Table":  "kategorite",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "kategoriId",
+                                            "Column":  "kategori_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"kategori_id\")"
+                                        },
+                                        {
+                                            "Field":  "emriKategorise",
+                                            "Column":  "emri_kategorise",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(name = \"emri_kategorise\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "pershkrimi",
+                                            "Column":  "pershkrimi",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Klientet.java",
+                         "Table":  "klientet",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"klient_id\")"
+                                        },
+                                        {
+                                            "Field":  "emri",
+                                            "Column":  "emri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "mbiemri",
+                                            "Column":  "mbiemri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "email",
+                                            "Column":  "email",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Email"
+                                        },
+                                        {
+                                            "Field":  "telefoni",
+                                            "Column":  "telefoni",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "dataLindjes",
+                                            "Column":  "data_lindjes",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_lindjes\")"
+                                        },
+                                        {
+                                            "Field":  "adresa",
+                                            "Column":  "adresa",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "dataRegjistrimit",
+                                            "Column":  "data_regjistrimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_regjistrimit\", updatable = false)"
+                                        },
+                                        {
+                                            "Field":  "userId",
+                                            "Column":  "user_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Column(name = \"user_id\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "KontrolletSyve.java",
+                         "Table":  "kontrolletsyve",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "kontrollId",
+                                            "Column":  "kontroll_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"kontroll_id\")"
+                                        },
+                                        {
+                                            "Field":  "klient",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\")"
+                                        },
+                                        {
+                                            "Field":  "punonjesi",
+                                            "Column":  "punonjes_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"punonjes_id\")"
+                                        },
+                                        {
+                                            "Field":  "receteId",
+                                            "Column":  "recete_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"recete_id\") // Added"
+                                        },
+                                        {
+                                            "Field":  "dataKontrollit",
+                                            "Column":  "data_kontrollit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_kontrollit\")"
+                                        },
+                                        {
+                                            "Field":  "rezultati",
+                                            "Column":  "rezultati",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"rezultati\")"
+                                        },
+                                        {
+                                            "Field":  "rekomandimi",
+                                            "Column":  "rekomandimi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"rekomandimi\") // Added"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Lentet.java",
+                         "Table":  "lentet",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "lenteId",
+                                            "Column":  "lente_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"lente_id\")"
+                                        },
+                                        {
+                                            "Field":  "llojiLentes",
+                                            "Column":  "lloji_lentes",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(name = \"lloji_lentes\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "prodhuesi",
+                                            "Column":  "prodhuesi",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "indeksi",
+                                            "Column":  "indeksi",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "veshja",
+                                            "Column":  "veshja",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "cmimi",
+                                            "Column":  "cmimi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(precision = 10, scale = 2)"
+                                        },
+                                        {
+                                            "Field":  "sasiaStok",
+                                            "Column":  "sasia_stok",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"sasia_stok\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Njoftimet.java",
+                         "Table":  "njoftimet",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "njoftimId",
+                                            "Column":  "njoftim_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"njoftim_id\")"
+                                        },
+                                        {
+                                            "Field":  "klienti",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "mesazhi",
+                                            "Column":  "mesazhi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "dataKrijimit",
+                                            "Column":  "data_krijimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_krijimit\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Pagesat.java",
+                         "Table":  "pagesat",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "pagese_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"pagese_id\")"
+                                        },
+                                        {
+                                            "Field":  "porosia",
+                                            "Column":  "porosi_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"porosi_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "shuma",
+                                            "Column":  "shuma",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(nullable = false, precision = 10, scale = 2)"
+                                        },
+                                        {
+                                            "Field":  "dataPageses",
+                                            "Column":  "data_pageses",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_pageses\")"
+                                        },
+                                        {
+                                            "Field":  "metodaPageses",
+                                            "Column":  "metoda",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"metoda\")"
+                                        },
+                                        {
+                                            "Field":  "statusi",
+                                            "Column":  "statusi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"statusi\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Porosite.java",
+                         "Table":  "porosite",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "porosiId",
+                                            "Column":  "porosi_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"porosi_id\")"
+                                        },
+                                        {
+                                            "Field":  "klient",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\", referencedColumnName = \"klient_id\", nullable = false); @JsonIgnoreProperties(\"porosite\")"
+                                        },
+                                        {
+                                            "Field":  "receta",
+                                            "Column":  "recete_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"recete_id\", referencedColumnName = \"recete_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "punonjesi",
+                                            "Column":  "punonjes_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"punonjes_id\", referencedColumnName = \"punonjes_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "dataPorosise",
+                                            "Column":  "data_porosise",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_porosise\", updatable = false)"
+                                        },
+                                        {
+                                            "Field":  "totali",
+                                            "Column":  "totali",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"totali\", precision = 10, scale = 2)"
+                                        },
+                                        {
+                                            "Field":  "statusi",
+                                            "Column":  "statusi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"statusi\")"
+                                        },
+                                        {
+                                            "Field":  "dataGatshmerise",
+                                            "Column":  "data_gatshmerise",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_gatshmerise\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Produktet.java",
+                         "Table":  "produktet",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "produktId",
+                                            "Column":  "produkt_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"produkt_id\")"
+                                        },
+                                        {
+                                            "Field":  "kategori",
+                                            "Column":  "kategori_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"kategori_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "emriProduktit",
+                                            "Column":  "emri_produktit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(name = \"emri_produktit\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "marka",
+                                            "Column":  "marka",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "modeli",
+                                            "Column":  "modeli",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "cmimi",
+                                            "Column":  "cmimi",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Positive(message = \"Çmimi duhet të jetë pozitiv\"); @Column(nullable = false, precision = 10, scale = 2)"
+                                        },
+                                        {
+                                            "Field":  "sasiaStok",
+                                            "Column":  "sasia_stok",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Min(value = 0, message = \"Stoku nuk mund të jetë negativ\"); @Column(name = \"sasia_stok\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "ngjyra",
+                                            "Column":  "ngjyra",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "materiali",
+                                            "Column":  "materiali",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Punonjesit.java",
+                         "Table":  "punonjesit",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "punonjesId",
+                                            "Column":  "punonjes_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"punonjes_id\")"
+                                        },
+                                        {
+                                            "Field":  "emri",
+                                            "Column":  "emri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotBlank; @Column(nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "mbiemri",
+                                            "Column":  "mbiemri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "roli",
+                                            "Column":  "roli",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "email",
+                                            "Column":  "email",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(unique = true)"
+                                        },
+                                        {
+                                            "Field":  "telefoni",
+                                            "Column":  "telefoni",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Recetat.java",
+                         "Table":  "recetat",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "receteId",
+                                            "Column":  "recete_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"recete_id\")"
+                                        },
+                                        {
+                                            "Field":  "klient",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "mjekuEmri",
+                                            "Column":  "mjeku_emri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"mjeku_emri\")"
+                                        },
+                                        {
+                                            "Field":  "dataRecetes",
+                                            "Column":  "data_recetes",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"data_recetes\")"
+                                        },
+                                        {
+                                            "Field":  "syriDjathteSfera",
+                                            "Column":  "syri_djathte_sfera",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"syri_djathte_sfera\")"
+                                        },
+                                        {
+                                            "Field":  "syriDjathteCilindri",
+                                            "Column":  "syri_djathte_cilindri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"syri_djathte_cilindri\")"
+                                        },
+                                        {
+                                            "Field":  "syriMajteSfera",
+                                            "Column":  "syri_majte_sfera",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"syri_majte_sfera\")"
+                                        },
+                                        {
+                                            "Field":  "syriMajteCilindri",
+                                            "Column":  "syri_majte_cilindri",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"syri_majte_cilindri\")"
+                                        },
+                                        {
+                                            "Field":  "distancaPupilare",
+                                            "Column":  "distanca_pupilare",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"distanca_pupilare\")"
+                                        },
+                                        {
+                                            "Field":  "shenimet",
+                                            "Column":  "shenimet",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"shenimet\", columnDefinition = \"NVARCHAR(MAX)\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "RefreshToken.java",
+                         "Table":  "refresh_tokens",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY)"
+                                        },
+                                        {
+                                            "Field":  "user",
+                                            "Column":  "user_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"user_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "token",
+                                            "Column":  "token",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(nullable = false, length = 500)"
+                                        },
+                                        {
+                                            "Field":  "expiryDate",
+                                            "Column":  "expiry_date",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"expiry_date\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "createdAt",
+                                            "Column":  "created_at",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"created_at\")"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Rezervimet.java",
+                         "Table":  "rezervimet",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "rezervimId",
+                                            "Column":  "rezervim_id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY); @Column(name = \"rezervim_id\")"
+                                        },
+                                        {
+                                            "Field":  "klienti",
+                                            "Column":  "klient_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"klient_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "punonjesi",
+                                            "Column":  "punonjes_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"punonjes_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "dataRezervimit",
+                                            "Column":  "data_rezervimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotNull; @Column(name = \"data_rezervimit\")"
+                                        },
+                                        {
+                                            "Field":  "oraRezervimit",
+                                            "Column":  "ora_rezervimit",
+                                            "Mapped":  false,
+                                            "Annotations":  "@NotNull; @Column(name = \"ora_rezervimit\")"
+                                        },
+                                        {
+                                            "Field":  "statusi",
+                                            "Column":  "statusi",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        },
+                                        {
+                                            "Field":  "shenime",
+                                            "Column":  "shenime",
+                                            "Mapped":  false,
+                                            "Annotations":  ""
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "Role.java",
+                         "Table":  "roles",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY)"
+                                        },
+                                        {
+                                            "Field":  "name",
+                                            "Column":  "name",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(unique = true, nullable = false)"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "User.java",
+                         "Table":  "users",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY)"
+                                        },
+                                        {
+                                            "Field":  "username",
+                                            "Column":  "username",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(unique = true, nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "email",
+                                            "Column":  "email",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(unique = true, nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "password",
+                                            "Column":  "password",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(nullable = false); @JsonIgnore"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "UserClaim.java",
+                         "Table":  "user_claims",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY)"
+                                        },
+                                        {
+                                            "Field":  "user",
+                                            "Column":  "user_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"user_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "claimType",
+                                            "Column":  "claim_type",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"claim_type\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "claimValue",
+                                            "Column":  "claim_value",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"claim_value\", nullable = false)"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "UserRole.java",
+                         "Table":  "user_roles",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY)"
+                                        },
+                                        {
+                                            "Field":  "user",
+                                            "Column":  "user_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"user_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "role",
+                                            "Column":  "role_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"role_id\", nullable = false)"
+                                        }
+                                    ]
+                     },
+                     {
+                         "Entity":  "UserToken.java",
+                         "Table":  "user_tokens",
+                         "TableExists":  true,
+                         "Fields":  [
+                                        {
+                                            "Field":  "id",
+                                            "Column":  "id",
+                                            "Mapped":  true,
+                                            "Annotations":  "@Id; @GeneratedValue(strategy = GenerationType.IDENTITY)"
+                                        },
+                                        {
+                                            "Field":  "user",
+                                            "Column":  "user_id",
+                                            "Mapped":  false,
+                                            "Annotations":  "@ManyToOne; @JoinColumn(name = \"user_id\", nullable = false)"
+                                        },
+                                        {
+                                            "Field":  "token",
+                                            "Column":  "token",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(nullable = false, length = 500)"
+                                        },
+                                        {
+                                            "Field":  "tokenType",
+                                            "Column":  "token_type",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"token_type\")"
+                                        },
+                                        {
+                                            "Field":  "createdAt",
+                                            "Column":  "created_at",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"created_at\")"
+                                        },
+                                        {
+                                            "Field":  "expiresAt",
+                                            "Column":  "expires_at",
+                                            "Mapped":  false,
+                                            "Annotations":  "@Column(name = \"expires_at\")"
+                                        }
+                                    ]
+                     }
+                 ],
+    "Findings":  [
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "porosia",
+                         "Column":  "porosi_id",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "kompaniaTransportit",
+                         "Column":  "kompania_transportit",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "numriGjurmimit",
+                         "Column":  "numri_gjurmimit",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "adresaDergeses",
+                         "Column":  "adresa_dergeses",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "dataNisjes",
+                         "Column":  "data_nisjes",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "dataArritjes",
+                         "Column":  "data_arritjes",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Dergesat.java",
+                         "Field":  "statusiDergeses",
+                         "Column":  "statusi_dergeses",
+                         "Table":  "dergesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "DetajetPorosise.java",
+                         "Field":  "sasia",
+                         "Column":  "sasia",
+                         "Table":  "detajet_porosise"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "DetajetPorosise.java",
+                         "Field":  "cmimiNjesi",
+                         "Column":  "cmimi_njesi",
+                         "Table":  "detajet_porosise"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "DetajetPorosise.java",
+                         "Field":  "nentotali",
+                         "Column":  "nentotali",
+                         "Table":  "detajet_porosise"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "DetajetPorosise.java",
+                         "Field":  "porosia",
+                         "Column":  "porosi_id",
+                         "Table":  "detajet_porosise"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "DetajetPorosise.java",
+                         "Field":  "produkti",
+                         "Column":  "produkt_id",
+                         "Table":  "detajet_porosise"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "DetajetPorosise.java",
+                         "Field":  "lentet",
+                         "Column":  "lente_id",
+                         "Table":  "detajet_porosise"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Furnitoret.java",
+                         "Field":  "emriKompanise",
+                         "Column":  "emri_kompanise",
+                         "Table":  "furnitoret"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Furnitoret.java",
+                         "Field":  "personiKontaktit",
+                         "Column":  "personi_kontaktit",
+                         "Table":  "furnitoret"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Furnitoret.java",
+                         "Field":  "email",
+                         "Column":  "email",
+                         "Table":  "furnitoret"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Furnitoret.java",
+                         "Field":  "telefoni",
+                         "Column":  "telefoni",
+                         "Table":  "furnitoret"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Furnitoret.java",
+                         "Field":  "produktetFurnizuara",
+                         "Column":  "produktet_furnizuara",
+                         "Table":  "furnitoret"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "dataFillimit",
+                         "Column":  "data_fillimit",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "dataSkadimit",
+                         "Column":  "data_skadimit",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "kushtet",
+                         "Column":  "kushtet",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "porosia",
+                         "Column":  "porosi_id",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "klienti",
+                         "Column":  "klient_id",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "produkti",
+                         "Column":  "produkt_id",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Garancite.java",
+                         "Field":  "lentet",
+                         "Column":  "lente_id",
+                         "Table":  "garancite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "HistorikuVizitave.java",
+                         "Field":  "klienti",
+                         "Column":  "klient_id",
+                         "Table":  "historikuvizitave"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "HistorikuVizitave.java",
+                         "Field":  "kontrolli",
+                         "Column":  "kontroll_id",
+                         "Table":  "historikuvizitave"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "HistorikuVizitave.java",
+                         "Field":  "dataVizites",
+                         "Column":  "data_vizites",
+                         "Table":  "historikuvizitave"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "HistorikuVizitave.java",
+                         "Field":  "pershkrimi",
+                         "Column":  "pershkrimi",
+                         "Table":  "historikuvizitave"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "HistorikuVizitave.java",
+                         "Field":  "rekomandimi",
+                         "Column":  "rekomandimi",
+                         "Table":  "historikuvizitave"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Inventari.java",
+                         "Field":  "produkt",
+                         "Column":  "produkt_id",
+                         "Table":  "inventari"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Inventari.java",
+                         "Field":  "sasiaAktuale",
+                         "Column":  "sasia_aktuale",
+                         "Table":  "inventari"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Inventari.java",
+                         "Field":  "sasiaMinimale",
+                         "Column":  "sasia_minimale",
+                         "Table":  "inventari"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Inventari.java",
+                         "Field":  "dataPerditesimit",
+                         "Column":  "data_perditesimit",
+                         "Table":  "inventari"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Kategorite.java",
+                         "Field":  "emriKategorise",
+                         "Column":  "emri_kategorise",
+                         "Table":  "kategorite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Kategorite.java",
+                         "Field":  "pershkrimi",
+                         "Column":  "pershkrimi",
+                         "Table":  "kategorite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "id",
+                         "Column":  "klient_id",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "emri",
+                         "Column":  "emri",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "mbiemri",
+                         "Column":  "mbiemri",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "email",
+                         "Column":  "email",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "telefoni",
+                         "Column":  "telefoni",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "dataLindjes",
+                         "Column":  "data_lindjes",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "adresa",
+                         "Column":  "adresa",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Klientet.java",
+                         "Field":  "dataRegjistrimit",
+                         "Column":  "data_regjistrimit",
+                         "Table":  "klientet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "KontrolletSyve.java",
+                         "Field":  "klient",
+                         "Column":  "klient_id",
+                         "Table":  "kontrolletsyve"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "KontrolletSyve.java",
+                         "Field":  "punonjesi",
+                         "Column":  "punonjes_id",
+                         "Table":  "kontrolletsyve"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "KontrolletSyve.java",
+                         "Field":  "receteId",
+                         "Column":  "recete_id",
+                         "Table":  "kontrolletsyve"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "KontrolletSyve.java",
+                         "Field":  "dataKontrollit",
+                         "Column":  "data_kontrollit",
+                         "Table":  "kontrolletsyve"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "KontrolletSyve.java",
+                         "Field":  "rezultati",
+                         "Column":  "rezultati",
+                         "Table":  "kontrolletsyve"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "KontrolletSyve.java",
+                         "Field":  "rekomandimi",
+                         "Column":  "rekomandimi",
+                         "Table":  "kontrolletsyve"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Lentet.java",
+                         "Field":  "llojiLentes",
+                         "Column":  "lloji_lentes",
+                         "Table":  "lentet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Lentet.java",
+                         "Field":  "prodhuesi",
+                         "Column":  "prodhuesi",
+                         "Table":  "lentet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Lentet.java",
+                         "Field":  "indeksi",
+                         "Column":  "indeksi",
+                         "Table":  "lentet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Lentet.java",
+                         "Field":  "veshja",
+                         "Column":  "veshja",
+                         "Table":  "lentet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Lentet.java",
+                         "Field":  "cmimi",
+                         "Column":  "cmimi",
+                         "Table":  "lentet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Lentet.java",
+                         "Field":  "sasiaStok",
+                         "Column":  "sasia_stok",
+                         "Table":  "lentet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Njoftimet.java",
+                         "Field":  "klienti",
+                         "Column":  "klient_id",
+                         "Table":  "njoftimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Njoftimet.java",
+                         "Field":  "mesazhi",
+                         "Column":  "mesazhi",
+                         "Table":  "njoftimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Njoftimet.java",
+                         "Field":  "dataKrijimit",
+                         "Column":  "data_krijimit",
+                         "Table":  "njoftimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Pagesat.java",
+                         "Field":  "porosia",
+                         "Column":  "porosi_id",
+                         "Table":  "pagesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Pagesat.java",
+                         "Field":  "shuma",
+                         "Column":  "shuma",
+                         "Table":  "pagesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Pagesat.java",
+                         "Field":  "dataPageses",
+                         "Column":  "data_pageses",
+                         "Table":  "pagesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Pagesat.java",
+                         "Field":  "metodaPageses",
+                         "Column":  "metoda",
+                         "Table":  "pagesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Pagesat.java",
+                         "Field":  "statusi",
+                         "Column":  "statusi",
+                         "Table":  "pagesat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "klient",
+                         "Column":  "klient_id",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "receta",
+                         "Column":  "recete_id",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "punonjesi",
+                         "Column":  "punonjes_id",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "dataPorosise",
+                         "Column":  "data_porosise",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "totali",
+                         "Column":  "totali",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "statusi",
+                         "Column":  "statusi",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Porosite.java",
+                         "Field":  "dataGatshmerise",
+                         "Column":  "data_gatshmerise",
+                         "Table":  "porosite"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "kategori",
+                         "Column":  "kategori_id",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "emriProduktit",
+                         "Column":  "emri_produktit",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "marka",
+                         "Column":  "marka",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "modeli",
+                         "Column":  "modeli",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "cmimi",
+                         "Column":  "cmimi",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "sasiaStok",
+                         "Column":  "sasia_stok",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "ngjyra",
+                         "Column":  "ngjyra",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Produktet.java",
+                         "Field":  "materiali",
+                         "Column":  "materiali",
+                         "Table":  "produktet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Punonjesit.java",
+                         "Field":  "emri",
+                         "Column":  "emri",
+                         "Table":  "punonjesit"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Punonjesit.java",
+                         "Field":  "mbiemri",
+                         "Column":  "mbiemri",
+                         "Table":  "punonjesit"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Punonjesit.java",
+                         "Field":  "roli",
+                         "Column":  "roli",
+                         "Table":  "punonjesit"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Punonjesit.java",
+                         "Field":  "email",
+                         "Column":  "email",
+                         "Table":  "punonjesit"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Punonjesit.java",
+                         "Field":  "telefoni",
+                         "Column":  "telefoni",
+                         "Table":  "punonjesit"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "klient",
+                         "Column":  "klient_id",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "mjekuEmri",
+                         "Column":  "mjeku_emri",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "dataRecetes",
+                         "Column":  "data_recetes",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "syriDjathteSfera",
+                         "Column":  "syri_djathte_sfera",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "syriDjathteCilindri",
+                         "Column":  "syri_djathte_cilindri",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "syriMajteSfera",
+                         "Column":  "syri_majte_sfera",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "syriMajteCilindri",
+                         "Column":  "syri_majte_cilindri",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "distancaPupilare",
+                         "Column":  "distanca_pupilare",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Recetat.java",
+                         "Field":  "shenimet",
+                         "Column":  "shenimet",
+                         "Table":  "recetat"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "RefreshToken.java",
+                         "Field":  "user",
+                         "Column":  "user_id",
+                         "Table":  "refresh_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "RefreshToken.java",
+                         "Field":  "token",
+                         "Column":  "token",
+                         "Table":  "refresh_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "RefreshToken.java",
+                         "Field":  "expiryDate",
+                         "Column":  "expiry_date",
+                         "Table":  "refresh_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "RefreshToken.java",
+                         "Field":  "createdAt",
+                         "Column":  "created_at",
+                         "Table":  "refresh_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Rezervimet.java",
+                         "Field":  "klienti",
+                         "Column":  "klient_id",
+                         "Table":  "rezervimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Rezervimet.java",
+                         "Field":  "punonjesi",
+                         "Column":  "punonjes_id",
+                         "Table":  "rezervimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Rezervimet.java",
+                         "Field":  "dataRezervimit",
+                         "Column":  "data_rezervimit",
+                         "Table":  "rezervimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Rezervimet.java",
+                         "Field":  "oraRezervimit",
+                         "Column":  "ora_rezervimit",
+                         "Table":  "rezervimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Rezervimet.java",
+                         "Field":  "statusi",
+                         "Column":  "statusi",
+                         "Table":  "rezervimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Rezervimet.java",
+                         "Field":  "shenime",
+                         "Column":  "shenime",
+                         "Table":  "rezervimet"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "Role.java",
+                         "Field":  "name",
+                         "Column":  "name",
+                         "Table":  "roles"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "User.java",
+                         "Field":  "username",
+                         "Column":  "username",
+                         "Table":  "users"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "User.java",
+                         "Field":  "email",
+                         "Column":  "email",
+                         "Table":  "users"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "User.java",
+                         "Field":  "password",
+                         "Column":  "password",
+                         "Table":  "users"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserClaim.java",
+                         "Field":  "user",
+                         "Column":  "user_id",
+                         "Table":  "user_claims"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserClaim.java",
+                         "Field":  "claimType",
+                         "Column":  "claim_type",
+                         "Table":  "user_claims"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserClaim.java",
+                         "Field":  "claimValue",
+                         "Column":  "claim_value",
+                         "Table":  "user_claims"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserRole.java",
+                         "Field":  "user",
+                         "Column":  "user_id",
+                         "Table":  "user_roles"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserRole.java",
+                         "Field":  "role",
+                         "Column":  "role_id",
+                         "Table":  "user_roles"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserToken.java",
+                         "Field":  "user",
+                         "Column":  "user_id",
+                         "Table":  "user_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserToken.java",
+                         "Field":  "token",
+                         "Column":  "token",
+                         "Table":  "user_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserToken.java",
+                         "Field":  "tokenType",
+                         "Column":  "token_type",
+                         "Table":  "user_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserToken.java",
+                         "Field":  "createdAt",
+                         "Column":  "created_at",
+                         "Table":  "user_tokens"
+                     },
+                     {
+                         "Level":  "COLUMN_MISMATCH",
+                         "Entity":  "UserToken.java",
+                         "Field":  "expiresAt",
+                         "Column":  "expires_at",
+                         "Table":  "user_tokens"
+                     }
+                 ]
+}

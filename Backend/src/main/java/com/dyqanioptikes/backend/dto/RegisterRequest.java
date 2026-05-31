@@ -18,6 +18,9 @@ public class RegisterRequest {
     @Size(min = 8)
     private String password;
 
+    // Optional last name (mbiemri). AuthService will fallback to username if empty.
+    private String mbiemri;
+
     public String getUsername() {
         return username;
     }
@@ -40,5 +43,13 @@ public class RegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMbiemri() {
+        return mbiemri;
+    }
+
+    public void setMbiemri(String mbiemri) {
+        this.mbiemri = mbiemri;
     }
 }

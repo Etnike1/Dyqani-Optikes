@@ -14,10 +14,10 @@ public class UserClaim {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
+    @Column(name = "claim_type", nullable = false)
     private String claimType;
 
-    @Column(nullable = false)
+    @Column(name = "claim_value", nullable = false)
     private String claimValue;
 
     public UserClaim() {

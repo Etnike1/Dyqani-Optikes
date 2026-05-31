@@ -14,8 +14,17 @@ export default function RegisterPage() {
     try {
       await authApi.register(data)
       navigate('/login')
-    } catch {
-      setError('Regjistrimi dështoi.')
+    } catch (err) {
+      const resp = err?.response?.data
+      if (resp && resp.errors) {
+        const msgs = Object.values(resp.errors).join(' · ')
+        setError(msgs)
+      } else if (resp && resp.message) {
+        setError(resp.message)
+      } else {
+        console.error(err)
+        setError('Regjistrimi dështoi.')
+      }
     }
   }
 
@@ -28,6 +37,10 @@ export default function RegisterPage() {
         <label className="field-label mb-4 block">
           username
           <input {...register('username', { required: true })} className="field-input" />
+        </label>
+        <label className="field-label mb-4 block">
+          mbiemri
+          <input {...register('mbiemri')} className="field-input" />
         </label>
         <label className="field-label mb-4 block">
           email
