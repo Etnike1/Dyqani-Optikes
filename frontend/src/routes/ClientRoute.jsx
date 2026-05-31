@@ -1,14 +1,11 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { useAuth, homePathForRole } from '../context/AuthContext'
 import RoleBasedLayout from '../components/Layout/RoleBasedLayout'
 
-export default function ProtectedRoute({ children, requiredRoles, bare }) {
+export default function ClientRoute({ children }) {
   const { user, isAuthenticated } = useAuth()
   if (!isAuthenticated) return <Navigate to="/login" replace />
-  if (requiredRoles?.length > 0 && !requiredRoles.includes(user.role)) {
-    return <Navigate to="/" replace />
-  }
-  if (bare) return children
+  if (user.role !== 'ROLE_CLIENT') return <Navigate to={homePathForRole(user.role)} replace />
   return <RoleBasedLayout>{children}</RoleBasedLayout>
 }

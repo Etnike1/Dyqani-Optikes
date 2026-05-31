@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RezervimetRepository
         extends JpaRepository<Rezervimet, Long> {
+    java.util.List<Rezervimet> findByKlienti_Id(Long klientId);
 }

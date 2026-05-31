@@ -5,7 +5,7 @@ const ROLES_OPTIONS = [
   { value: '', label: FILTERS.allRoles },
   { value: 'ROLE_ADMIN', label: ROLES.admin },
   { value: 'ROLE_EMPLOYEE', label: ROLES.employee },
-  { value: 'ROLE_USER', label: ROLES.user },
+  { value: 'ROLE_CLIENT', label: ROLES.client },
 ]
 
 const STATUSES = [

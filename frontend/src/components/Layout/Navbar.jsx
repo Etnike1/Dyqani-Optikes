@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import NotificationDropdown from '../Notifications/NotificationDropdown'
 import { fetchNotifications, updateNotification, deleteNotification } from '../../api/notifications'
-import { APP_NAME, ACTIONS } from '../../constants/labels.sq'
+import { ACTIONS, APP_NAME } from '../../constants/labels.sq'
+import { ROLE_LABELS } from './navConfig'
 
 export default function Navbar({ onMobileMenuClick }) {
   const { user, logout } = useAuth()
+  const roleLabel = ROLE_LABELS[user?.role] ?? user?.role
   const [notifications, setNotifications] = useState([])
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const wrapperRef = useRef(null)
@@ -105,6 +107,11 @@ export default function Navbar({ onMobileMenuClick }) {
           )}
         </div>
         <span className="hidden text-sm text-slate-300 sm:inline">{user?.username}</span>
+        {roleLabel && (
+          <span className="rounded-full bg-primary-600/20 px-2.5 py-0.5 text-xs font-medium text-primary-300">
+            {roleLabel}
+          </span>
+        )}
         <button type="button" onClick={logout} className="text-sm font-medium text-red-400 hover:text-red-300">
           {ACTIONS.logout}
         </button>
