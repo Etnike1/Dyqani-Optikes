@@ -50,9 +50,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
-                                "/api/produktet/**",
-                                "/api/kategorite/**",
-                                "/api/lentet/**"
+                                "/api/produktet", "/api/produktet/**",
+                                "/api/kategorite", "/api/kategorite/**",
+                                "/api/lentet", "/api/lentet/**"
                         ).permitAll()
                         .requestMatchers("/api/punonjesit/**").hasRole("ADMIN")
                         .requestMatchers("/api/furnitoret/**").hasRole("ADMIN")

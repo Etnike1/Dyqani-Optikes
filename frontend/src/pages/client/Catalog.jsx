@@ -1,46 +1,72 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { fetchProducts } from '../../api/products'
-import { formatCurrency } from '../../utils/formatCurrency'
-import LoadingSpinner from '../../components/ui/LoadingSpinner'
-import PageHeader from '../../components/ui/PageHeader'
-import { MESSAGES, NAV, TABLE } from '../../constants/labels.sq'
+﻿import React, { useEffect, useMemo, useState } from 'react'
+import { fetchProducts } from '../../../api/products'
+import { fetchCategories } from '../../../api/categories'
+import { formatCurrency } from '../../../utils/formatCurrency'
+import LoadingSpinner from '../../../components/ui/LoadingSpinner'
+import PageHeader from '../../../components/ui/PageHeader'
+import ProductFilters from '../../../components/Products/ProductFilters'
+import { MESSAGES, NAV, TABLE } from '../../../constants/labels.sq'
 
-export default function CatalogPage() {
+export default function Catalog() {
   const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
   const [search, setSearch] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [pageSize, setPageSize] = useState(8)
 
   useEffect(() => {
     async function loadData() {
       try {
-        const data = await fetchProducts()
-        // FIX 1: Strictly ensure data is an array. If the backend sends an error object, fallback to []
-        setProducts(Array.isArray(data) ? data : [])
+        setLoading(true)
+        const [productData, categoryData] = await Promise.all([
+          fetchProducts(),
+          fetchCategories(),
+        ])
+
+        setProducts(Array.isArray(productData) ? productData : [])
+        setCategories(Array.isArray(categoryData) ? categoryData : [])
       } catch {
         setError(MESSAGES.loadError)
       } finally {
         setLoading(false)
       }
     }
+
     loadData()
   }, [])
 
   const normalizedSearch = search.trim().toLowerCase()
-  const filteredProducts = useMemo(() => {
-    if (!normalizedSearch) return products
 
-    // FIX 2: Ensure products is actually an array before filtering
+  const filteredProducts = useMemo(() => {
     if (!Array.isArray(products)) return []
 
     return products.filter((product) => {
-      const candidate = [product.emriProduktit, product.marka, product.modeli, product.ngjyra]
+      const categoryName = product.kategori?.emriKategorise ?? ''
+      const searchableValue = [
+        product.emriProduktit,
+        product.marka,
+        product.modeli,
+        product.ngjyra,
+        categoryName,
+      ]
         .filter(Boolean)
         .join(' ')
         .toLowerCase()
-      return candidate.includes(normalizedSearch)
+
+      const matchesSearch = !normalizedSearch || searchableValue.includes(normalizedSearch)
+      const matchesCategory = !categoryFilter || String(product.kategori?.kategoriId) === String(categoryFilter)
+
+      return matchesSearch && matchesCategory
     })
-  }, [products, normalizedSearch])
+  }, [products, normalizedSearch, categoryFilter])
+
+  const visibleProducts = useMemo(
+    () => filteredProducts.slice(0, pageSize),
+    [filteredProducts, pageSize]
+  )
 
   if (loading) return <LoadingSpinner />
   if (error) return <p className="text-red-400">{error}</p>
@@ -48,18 +74,19 @@ export default function CatalogPage() {
   return (
     <div>
       <PageHeader title={NAV.catalog} description="Produktet e disponueshme në dyqanin tonë optik." />
-      <div className="panel mb-6">
-        <input
-          type="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Kërko produkte..."
-          className="field-input w-full max-w-md"
-        />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {/* FIX 3: Optional chaining before map */}
-        {filteredProducts?.map((product) => (
+       <h1 className="text-4xl text-red-500 font-bold text-center my-4">KODI I SAKTË PO FUNKSIONON!</h1>
+      <ProductFilters
+        search={search}
+        onSearchChange={setSearch}
+        category={categoryFilter}
+        onCategoryChange={setCategoryFilter}
+        categories={categories}
+        pageSize={pageSize}
+        onPageSizeChange={setPageSize}
+      />
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-6">
+        {visibleProducts.map((product) => (
           <article key={product.produktId} className="panel">
             <p className="text-xs uppercase tracking-widest text-slate-500">
               {product.kategori?.emriKategorise || TABLE.category}
@@ -73,6 +100,12 @@ export default function CatalogPage() {
             </p>
           </article>
         ))}
+
+        {visibleProducts.length === 0 && (
+          <p className="text-slate-400 col-span-full text-center py-8">
+            Nuk u gjet asnjë produkt që përputhet me kërkimin tuaj.
+          </p>
+        )}
       </div>
     </div>
   )

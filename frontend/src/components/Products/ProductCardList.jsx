@@ -5,9 +5,9 @@ import { Edit3, Trash2 } from 'lucide-react'
 import Button from '../ui/Button'
 import { ACTIONS, MESSAGES, STATUS_LABELS, TABLE } from '../../constants/labels.sq'
 
-export default function ProductCardList({ products, onEdit, onDelete, readOnly = false }) {
+export default function ProductCardList({ products, onEdit, onDelete, readOnly = false, showOnDesktop = false }) {
   return (
-    <div className="grid gap-4 sm:hidden">
+    <div className={showOnDesktop ? 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3' : 'grid gap-4 sm:hidden'}>
       {products.map((product) => (
         <article key={product.produktId} className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-card-md">
           <div className="p-5">
