@@ -5,12 +5,12 @@ const PAGE_SIZES = [8, 12, 16, 20]
 
 export default function ProductFilters({
   search,
-  onSearchChange,
-  category,
-  onCategoryChange,
+  onSearchChange = () => {},
+  category = '',
+  onCategoryChange = () => {},
   categories = [],
-  pageSize,
-  onPageSizeChange,
+  pageSize = PAGE_SIZES[0],
+  onPageSizeChange = () => {},
 }) {
   return (
     <div className="filter-panel">
